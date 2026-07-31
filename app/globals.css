@@ -1,26 +1,135 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/*  Ambica Design System                                               */
+/*  Font: Geist (sans + mono, loaded via next/font in app/layout.tsx)  */
+/*  Brand green sampled from logo: #c9d234                             */
+/*  Brand charcoal sampled from logo: #2f2e2d                          */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  /* Typography ----------------------------------------------------- */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+
+  /* Display type scale (hero / marketing headlines) */
+  --text-display-lg: clamp(3.5rem, 8vw, 6.5rem);
+  --text-display-lg--line-height: 1;
+  --text-display-lg--letter-spacing: -0.035em;
+  --text-display-lg--font-weight: 600;
+
+  --text-display: clamp(2.75rem, 6vw, 4.5rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 600;
+
+  --text-display-sm: clamp(2rem, 4vw, 3rem);
+  --text-display-sm--line-height: 1.1;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-display-sm--font-weight: 600;
+
+  /* Brand green — "Ambica Chartreuse" ------------------------------ */
+  --color-brand-50: #fafbe9;
+  --color-brand-100: #f4f7cb;
+  --color-brand-200: #eaf09b;
+  --color-brand-300: #dee55f;
+  --color-brand-400: #d3dc3d;
+  --color-brand-500: #c9d234; /* logo green */
+  --color-brand-600: #a3ac20;
+  --color-brand-700: #7d831c;
+  --color-brand-800: #63681d;
+  --color-brand-900: #54581d;
+  --color-brand-950: #2c300c;
+
+  /* Ink — warm charcoal neutrals ----------------------------------- */
+  --color-ink-50: #f7f7f5;
+  --color-ink-100: #edede9;
+  --color-ink-200: #dad9d4;
+  --color-ink-300: #bebdb7;
+  --color-ink-400: #9c9b94;
+  --color-ink-500: #82817a;
+  --color-ink-600: #6b6a64;
+  --color-ink-700: #575651;
+  --color-ink-800: #454440;
+  --color-ink-900: #2f2e2d; /* logo charcoal */
+  --color-ink-950: #171614;
+
+  /* Shadows --------------------------------------------------------- */
+  --shadow-glow: 0 0 24px rgb(201 210 52 / 0.35), 0 0 64px rgb(201 210 52 / 0.15);
+  --shadow-lift: 0 1px 2px rgb(23 22 20 / 0.06), 0 8px 24px rgb(23 22 20 / 0.1);
+
+  /* Motion ----------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-scroll-cue: scroll-cue 2s var(--ease-in-out-soft) infinite;
+
+  @keyframes scroll-cue {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(360%);
+    }
+  }
+}
+
+/* Semantic roles ---------------------------------------------------- */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--color-ink-900);
+  --surface: var(--color-ink-50);
+  --surface-raised: #ffffff;
+  --muted: var(--color-ink-500);
+  --border: var(--color-ink-200);
+  --primary: var(--color-brand-500);
+  --primary-hover: var(--color-brand-400);
+  --primary-foreground: var(--color-ink-950);
+  --accent: var(--color-brand-600);
+  --ring: var(--color-brand-500);
+}
+
+/* Dark context (hero, footers, inverted sections) */
+.dark {
+  --background: var(--color-ink-950);
+  --foreground: var(--color-ink-50);
+  --surface: var(--color-ink-900);
+  --surface-raised: var(--color-ink-800);
+  --muted: var(--color-ink-400);
+  --border: var(--color-ink-800);
+  --accent: var(--color-brand-400);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-ring: var(--ring);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Base -------------------------------------------------------------- */
+@layer base {
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  ::selection {
+    background: var(--color-brand-500);
+    color: var(--color-ink-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
 }
