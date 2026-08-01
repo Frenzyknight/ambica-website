@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 
 const navLinks = [
@@ -17,8 +18,14 @@ export default function SiteHeader() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    if (open) document.addEventListener("keydown", handleKeyDown);
+
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [open]);
 
@@ -32,7 +39,7 @@ export default function SiteHeader() {
             width={180}
             height={128}
             priority
-            className="h-auto w-[120px] md:w-[180px]"
+            className="h-auto w-30 md:w-45"
           />
         </Link>
 
@@ -70,12 +77,12 @@ export default function SiteHeader() {
               transition={{ duration: 0.3 }}
             />
             <motion.span
-              className="absolute left-0 top-[7px] block h-0.5 w-6 rounded-full bg-ink-50"
+              className="absolute left-0 top-1.75 block h-0.5 w-6 rounded-full bg-ink-50"
               animate={open ? { opacity: 0 } : { opacity: 1 }}
               transition={{ duration: 0.2 }}
             />
             <motion.span
-              className="absolute left-0 top-[14px] block h-0.5 w-6 rounded-full bg-ink-50"
+              className="absolute left-0 top-3.5 block h-0.5 w-6 rounded-full bg-ink-50"
               animate={open ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.3 }}
             />
@@ -83,63 +90,80 @@ export default function SiteHeader() {
         </button>
       </div>
 
-      {/* Mobile menu overlay */}
-      <AnimatePresence>
-        {open && (
-          <motion.nav
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="pointer-events-auto fixed inset-0 z-10 flex flex-col justify-center gap-2 bg-ink-950/95 px-8 backdrop-blur-md md:hidden"
-          >
-            {navLinks.map((link, i) => (
-              <motion.div
-                key={link.label}
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + i * 0.06, duration: 0.3 }}
+      {/* Portalling the overlay keeps it above page-level stacking contexts. */}
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {open && (
+              <motion.nav
+                aria-label="Mobile navigation"
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="fixed inset-0 z-100 flex flex-col justify-center gap-2 bg-ink-950/95 px-8 backdrop-blur-md md:hidden"
               >
-                <Link
-                  href={link.href}
+                <button
+                  type="button"
                   onClick={() => setOpen(false)}
-                  className="block py-3 text-3xl font-semibold text-ink-50 transition-colors hover:text-brand-400"
+                  aria-label="Close menu"
+                  className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-full border border-ink-700 text-ink-50"
                 >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 + navLinks.length * 0.06, duration: 0.3 }}
-            >
-              <Link
-                href="/#contact"
-                onClick={() => setOpen(false)}
-                className="mt-4 inline-block rounded-full border border-ink-700 px-6 py-3 text-base font-medium text-ink-50 transition-colors hover:border-brand-500 hover:text-brand-400"
-              >
-                Contact
-              </Link>
-            </motion.div>
+                  <span className="relative block h-5 w-5">
+                    <span className="absolute left-0 top-1/2 block h-0.5 w-5 -translate-y-1/2 rotate-45 rounded-full bg-current" />
+                    <span className="absolute left-0 top-1/2 block h-0.5 w-5 -translate-y-1/2 -rotate-45 rounded-full bg-current" />
+                  </span>
+                </button>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.4 }}
-              className="absolute inset-x-0 bottom-10 flex justify-center"
-            >
-              <Image
-                src="/ambica-logo-light.png"
-                alt="Ambica — a mark of quality"
-                width={110}
-                height={78}
-                className="opacity-80"
-              />
-            </motion.div>
-          </motion.nav>
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.label}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.06, duration: 0.3 }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="block py-3 text-3xl font-semibold text-ink-50 transition-colors hover:text-brand-400"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 + navLinks.length * 0.06, duration: 0.3 }}
+                >
+                  <Link
+                    href="/#contact"
+                    onClick={() => setOpen(false)}
+                    className="mt-4 inline-block rounded-full border border-ink-700 px-6 py-3 text-base font-medium text-ink-50 transition-colors hover:border-brand-500 hover:text-brand-400"
+                  >
+                    Contact
+                  </Link>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  className="absolute inset-x-0 bottom-10 flex justify-center"
+                >
+                  <Image
+                    src="/ambica-logo-light.png"
+                    alt="Ambica — a mark of quality"
+                    width={110}
+                    height={78}
+                    className="opacity-80"
+                  />
+                </motion.div>
+              </motion.nav>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </header>
   );
 }

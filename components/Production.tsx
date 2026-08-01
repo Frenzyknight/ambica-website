@@ -56,6 +56,23 @@ function useIsDesktop() {
   return isDesktop;
 }
 
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`h-4 w-4 ${direction === "left" ? "rotate-180" : ""}`}
+      aria-hidden
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
 function StepImage({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="relative mt-5 aspect-4/3 overflow-hidden rounded-2xl border border-border bg-surface">
@@ -112,15 +129,15 @@ function StepCard({
   return (
     <div
       ref={ref}
-      className={`lg:flex lg:h-[90vh] lg:min-h-[600px] ${
+      className={`w-[84vw] shrink-0 snap-center lg:flex lg:h-[90vh] lg:min-h-150 lg:w-auto ${
         isRight ? "lg:justify-end" : "lg:justify-start"
-      } ${index > 0 ? "mt-8 lg:mt-24" : ""}`}
+      } ${index > 0 ? "lg:mt-24" : ""}`}
     >
       <motion.article
         style={
           isDesktop
             ? { opacity, y, scale, rotate: tilt }
-            : { rotate: tilt * 0.6 }
+            : undefined
         }
         className="relative isolate w-full max-w-md overflow-hidden rounded-[1.75rem] border border-border bg-white p-6 text-ink-950 shadow-lift lg:sticky lg:top-28 lg:h-fit lg:self-start lg:p-7"
       >
@@ -160,6 +177,42 @@ export default function Production({
   className?: string;
 }) {
   const isDesktop = useIsDesktop();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const updateControls = () => {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      setAtStart(track.scrollLeft <= 1);
+      setAtEnd(track.scrollLeft >= maxScroll - 1);
+    };
+
+    updateControls();
+    track.addEventListener("scroll", updateControls, { passive: true });
+    const resizeObserver = new ResizeObserver(updateControls);
+    resizeObserver.observe(track);
+
+    return () => {
+      track.removeEventListener("scroll", updateControls);
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  const scrollByCard = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const first = track.firstElementChild as HTMLElement | null;
+    const second = track.children[1] as HTMLElement | null;
+    const step =
+      first && second
+        ? second.offsetLeft - first.offsetLeft
+        : (first?.offsetWidth ?? track.clientWidth);
+    track.scrollBy({ left: step * direction, behavior: "smooth" });
+  };
 
   return (
     <section
@@ -193,17 +246,51 @@ export default function Production({
             </Reveal>
           </div>
 
-          {/* Right — stacked cards that rise and fade past one another */}
-          <div>
-            {steps.map((step, i) => (
-              <StepCard
-                key={step.title}
-                step={step}
-                index={i}
-                total={steps.length}
-                isDesktop={isDesktop}
-              />
-            ))}
+          {/* Swipe carousel on mobile; stacked cards on desktop */}
+          <div className="min-w-0">
+            <div
+              ref={trackRef}
+              tabIndex={0}
+              role="group"
+              aria-label="Fabric production stages"
+              className="-mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain scroll-smooth px-[8vw] pb-4 scrollbar-none lg:mx-0 lg:block lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
+            >
+              {steps.map((step, i) => (
+                <StepCard
+                  key={step.title}
+                  step={step}
+                  index={i}
+                  total={steps.length}
+                  isDesktop={isDesktop}
+                />
+              ))}
+            </div>
+
+            <div className="mt-5 flex items-center justify-between lg:hidden">
+              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                Swipe or use arrows
+              </p>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => scrollByCard(-1)}
+                  disabled={atStart}
+                  aria-label="Previous production stage"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface-raised transition-colors hover:border-brand-500 hover:text-brand-600 disabled:pointer-events-none disabled:opacity-35"
+                >
+                  <ArrowIcon direction="left" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollByCard(1)}
+                  disabled={atEnd}
+                  aria-label="Next production stage"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface-raised transition-colors hover:border-brand-500 hover:text-brand-600 disabled:pointer-events-none disabled:opacity-35"
+                >
+                  <ArrowIcon direction="right" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

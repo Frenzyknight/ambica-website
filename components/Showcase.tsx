@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Reveal, RevealEyebrow } from "./RevealText";
 
 const panels = [
@@ -35,8 +35,76 @@ const panels = [
   },
 ];
 
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className={`h-4 w-4 ${direction === "left" ? "rotate-180" : ""}`}
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
 export default function Showcase() {
   const [active, setActive] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const updateControls = () => {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      setAtStart(track.scrollLeft <= 1);
+      setAtEnd(track.scrollLeft >= maxScroll - 1);
+
+      const center = track.scrollLeft + track.clientWidth / 2;
+      const cards = Array.from(track.children) as HTMLElement[];
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+      cards.forEach((card, index) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(cardCenter - center);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+      setCurrentSlide(closestIndex);
+    };
+
+    updateControls();
+    track.addEventListener("scroll", updateControls, { passive: true });
+    const resizeObserver = new ResizeObserver(updateControls);
+    resizeObserver.observe(track);
+
+    return () => {
+      track.removeEventListener("scroll", updateControls);
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  const scrollByCard = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const first = track.firstElementChild as HTMLElement | null;
+    const second = track.children[1] as HTMLElement | null;
+    const step =
+      first && second
+        ? second.offsetLeft - first.offsetLeft
+        : (first?.offsetWidth ?? track.clientWidth);
+    track.scrollBy({ left: step * direction, behavior: "smooth" });
+  };
 
   return (
     <section className="dark relative isolate overflow-hidden bg-ink-950 text-foreground">
@@ -63,7 +131,13 @@ export default function Showcase() {
           </Reveal>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 lg:mt-16 lg:h-[68vh] lg:min-h-[540px] lg:flex-row lg:gap-4">
+        <div
+          ref={trackRef}
+          tabIndex={0}
+          role="group"
+          aria-label="Fabric applications"
+          className="-mx-6 mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-[8vw] pb-2 scrollbar-none sm:px-[15vw] lg:mx-0 lg:mt-16 lg:h-[68vh] lg:min-h-135 lg:gap-4 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
+        >
           {panels.map((p, i) => {
             const isActive = i === active;
             return (
@@ -74,7 +148,7 @@ export default function Showcase() {
                 onFocus={() => setActive(i)}
                 onClick={() => setActive(i)}
                 aria-expanded={isActive}
-                className={`group relative isolate min-h-76 basis-0 grow cursor-pointer overflow-hidden rounded-3xl border border-border text-left transition-[flex-grow] duration-700 ease-out-expo will-change-[flex-grow] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:min-h-0 ${
+                className={`group relative isolate h-112 w-[84vw] shrink-0 snap-center cursor-pointer overflow-hidden rounded-3xl border border-ink-700 text-left shadow-lg transition-[flex-grow] duration-700 ease-out-expo will-change-[flex-grow] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:h-128 sm:w-[70vw] lg:h-auto lg:w-auto lg:basis-0 lg:snap-none lg:shadow-none ${
                   isActive ? "lg:grow-2" : "lg:grow"
                 }`}
               >
@@ -82,41 +156,68 @@ export default function Showcase() {
                   src={p.image}
                   alt={p.alt}
                   fill
-                  sizes="(min-width: 1024px) 28vw, 100vw"
+                  sizes="(min-width: 1024px) 28vw, (min-width: 640px) 70vw, 84vw"
                   className="object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
                   priority={i === 0}
                 />
 
-                {/* legibility scrim */}
-                <div className="absolute inset-0 bg-linear-to-t from-ink-950/85 via-ink-950/20 to-transparent" />
+                {/* Deep image fade keeps the copy legible without another card. */}
+                <div className="absolute inset-0 bg-linear-to-t from-ink-950 from-5% via-ink-950/55 via-45% to-transparent lg:from-ink-950/90 lg:via-ink-950/20" />
 
-                {/* index */}
-                <span className="absolute left-6 top-6 font-mono text-lg tracking-[0.2em] text-ink-900">
+                <span className="absolute left-6 top-6 font-mono text-sm tracking-[0.2em] text-ink-100 drop-shadow-md lg:text-lg lg:text-ink-900">
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
-                {/* description — fades in above the horizontal title when active */}
-                <p
-                  className={`pointer-events-none absolute bottom-18 left-6 right-6 max-w-xs text-sm leading-relaxed text-ink-300 transition-opacity duration-500 lg:right-auto ${
-                    isActive ? "opacity-100 lg:delay-200" : "opacity-100 lg:opacity-0"
-                  }`}
-                >
-                  {p.description}
-                </p>
-
-                {/* title — vertical when collapsed, rotates to horizontal when active */}
-                <h3
-                  className={`absolute bottom-6 left-6 origin-bottom-left whitespace-nowrap text-2xl font-semibold tracking-tight text-ink-50 transition-transform duration-700 ease-out-expo ${
-                    isActive
-                      ? "rotate-0"
-                      : "rotate-0 lg:translate-x-6 lg:-translate-y-4 lg:-rotate-90"
-                  }`}
-                >
-                  {p.title}
-                </h3>
+                <div className="absolute inset-x-6 bottom-7 flex flex-col lg:bottom-6">
+                  <h3
+                    className={`order-1 origin-bottom-left text-balance text-xl font-semibold leading-tight tracking-tight text-ink-50 drop-shadow-md transition-transform duration-700 ease-out-expo sm:text-2xl lg:order-2 lg:whitespace-nowrap ${
+                      isActive
+                        ? "rotate-0"
+                        : "rotate-0 lg:translate-x-6 lg:-translate-y-4 lg:-rotate-90"
+                    }`}
+                  >
+                    {p.title}
+                  </h3>
+                  <p
+                    className={`pointer-events-none order-2 mt-3 max-w-sm border-l-2 border-brand-400 pl-4 text-sm leading-6 text-ink-100 drop-shadow-md transition-opacity duration-500 lg:order-1 lg:mt-0 lg:mb-3 lg:border-0 lg:pl-0 lg:text-ink-300 ${
+                      isActive
+                        ? "opacity-100 lg:delay-200"
+                        : "opacity-100 lg:opacity-0"
+                    }`}
+                  >
+                    {p.description}
+                  </p>
+                </div>
               </button>
             );
           })}
+        </div>
+
+        <div className="mt-6 flex items-center justify-between lg:hidden">
+          <span className="font-mono text-xs tracking-[0.18em] text-ink-400">
+            {String(currentSlide + 1).padStart(2, "0")} /{" "}
+            {String(panels.length).padStart(2, "0")}
+          </span>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => scrollByCard(-1)}
+              disabled={atStart}
+              aria-label="Previous fabric application"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-700 text-ink-50 transition-colors hover:border-brand-400 hover:text-brand-400 disabled:pointer-events-none disabled:opacity-35"
+            >
+              <ArrowIcon direction="left" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByCard(1)}
+              disabled={atEnd}
+              aria-label="Next fabric application"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-700 text-ink-50 transition-colors hover:border-brand-400 hover:text-brand-400 disabled:pointer-events-none disabled:opacity-35"
+            >
+              <ArrowIcon direction="right" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

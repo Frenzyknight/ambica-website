@@ -20,34 +20,34 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     quote:
-      "The hand of the cloth is unlike anything we'd sampled before. It drapes beautifully and has held its shade through dozens of washes.",
-    name: "Stefanie Rashford",
-    role: "Head of Design, Loomé",
-    initials: "SR",
+      "We have repeated the same shirting quality four seasons running and the shade card still matches lot for lot. That kind of consistency is rare.",
+    name: "Rohit Agarwal",
+    role: "Garment Manufacturer",
+    initials: "RA",
     rating: 5,
   },
   {
     quote:
-      "Service was exceptional, and it's clear Ambica has a genuine passion for the craft. The attention to detail and willingness to personalise made it truly memorable.",
-    name: "Patric Stone",
-    role: "Founder, North Atelier",
-    initials: "PS",
+      "The suiting drapes exactly the way my clients expect and holds a press through a full wedding season. My cutters ask for Ambica cloth by name now.",
+    name: "Meera Iyer",
+    role: "Bespoke Tailor",
+    initials: "MI",
     rating: 5,
   },
   {
     quote:
-      "The work put into our custom finish was outstanding. The level of skill and expertise demonstrated was truly impressive, and delivery was right on time.",
-    name: "Hugo James",
-    role: "Sourcing Lead, Verano",
-    initials: "HJ",
+      "Buying straight from the mill changed our margins. Wide range, honest rates, and dispatch reaches our warehouse when they say it will.",
+    name: "Vikram Shah",
+    role: "Fabric Wholesaler",
+    initials: "VS",
     rating: 5,
   },
   {
     quote:
-      "Consistent GSM, honest lead times, and a team that answers every question. Ambica has become the mill we recommend to everyone.",
-    name: "Amelia Cortez",
-    role: "Production Manager, Fold Studio",
-    initials: "AC",
+      "They developed a custom finish for our capsule line and had samples back within the week. Bulk followed on time with no drop in quality.",
+    name: "Ananya Deshmukh",
+    role: "Fashion Label Owner",
+    initials: "AD",
     rating: 5,
   },
 ];

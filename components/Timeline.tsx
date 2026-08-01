@@ -20,39 +20,49 @@ const LINE_X = "left-6 lg:left-1/2";
 
 const milestones: Milestone[] = [
   {
-    year: "1984",
-    title: "The First Loom",
-    body: "Ambica opens its doors with a single handloom in a modest shed, weaving its first bolts of cotton for local tailors — the beginning of a family obsession with drape and feel.",
-    image: "/timeline-1986.jpeg",
-    imageAlt: "Artisan weaving on a handloom in a modest workshop, 1986",
+    year: "1992",
+    title: "The Beginning",
+    body: "Founders moved from Bhadra to Ahmedabad with a vision to learn something in the textile sector. In 1993, Ambica was established with a vision to deliver quality textile solutions built on trust, integrity, and craftsmanship — starting in one small room in the New Cloth Market.",
+    image: "/timeline-1992.jpeg",
+    imageAlt:
+      "Two young traders working in a one-room fabric shop in Ahmedabad’s New Cloth Market",
   },
   {
-    year: "1996",
-    title: "Scaling the Mill",
-    body: "A move to a purpose-built mill and our first power looms multiply output tenfold, letting us take on larger orders without ever loosening our grip on quality.",
-    image: "/timeline-1990.jpeg",
-    imageAlt: "Workers operating power looms in a purpose-built textile mill",
+    year: "2001",
+    title: "Business Expansion",
+    body: "Bought our own big space in the market, expanded into a wide range of fabrics, and strengthened relationships with manufacturers across India. In 2010, Ambica was officially registered.",
+    image: "/timeline-2001.jpeg",
+    imageAlt:
+      "Traders spreading printed fabric across the counter of Ambica’s own cloth market showroom",
   },
   {
-    year: "2005",
-    title: "Colour, In-House",
-    body: "We bring dyeing and finishing under our own roof, mastering shade, wash and hand so every metre can be tuned to a customer's exact specification.",
-    image: "/timeline-2005.jpeg",
-    imageAlt: "In-house fabric dyeing with steaming vats and overhead drying racks",
-  },
-  {
-    year: "2014",
-    title: "Across Borders",
-    body: "Our fabrics cross the ocean for the first time, dressing brands across the Gulf, Europe and beyond as exports become a pillar of the business.",
+    year: "2017",
+    title: "Growing Presence",
+    body: "Expanded operations, increased product portfolio, and enhanced supply chain capabilities to meet growing customer demands.",
     image: "/timeline-2014.jpeg",
-    imageAlt: "Fabric rolls being loaded for export at the Ambica loading dock",
+    imageAlt: "Fabric rolls being loaded at the Ambica warehouse",
   },
   {
-    year: "2023",
-    title: "Weaving Sustainably",
-    body: "A new generation retools the floor around responsible fibres, water recovery and cleaner energy — proof that heritage craft and a lighter footprint can share a loom.",
+    year: "2021",
+    title: "Building Strong Partnerships",
+    body: "Started two subsidiary firms — Nirbhay Textile Mill and Dharun Textile Mill — further expanding the business into digital print shirts and plain dyeing respectively.",
+    image: "/timeline-2005.jpeg",
+    imageAlt: "Plain dyeing at Dharun Textile Mill with steaming vats and drying racks",
+  },
+  {
+    year: "2024",
+    title: "Brand Evolution",
+    body: "Strengthened Ambica’s identity with a modern approach, improved customer experience, and a focus on sustainable growth.",
     image: "/timeline-2023.jpeg",
-    imageAlt: "Water recycling plant with solar panels at the Ambica facility",
+    imageAlt: "Ambica’s modern brand identity and customer experience",
+  },
+  {
+    year: "2026 & Beyond",
+    title: "Future Vision",
+    body: "To become one of India’s most trusted textile sourcing and manufacturing partners by embracing innovation, sustainability, and long-term relationships.",
+    image: "/timeline-2026.jpeg",
+    imageAlt:
+      "Ambica team reviewing fabric swatches against a curated fabric wall in a modern showroom",
   },
 ];
 
@@ -217,8 +227,8 @@ export default function Timeline() {
             <span className="text-brand-600">decades</span>
           </Reveal>
           <Reveal as="p" delay={0.08} className="mx-auto mt-4 max-w-md text-pretty leading-relaxed text-muted">
-            From a single handloom to a modern mill — the milestones that
-            shaped how Ambica makes cloth.
+            From a small room in the New Cloth Market to a trusted textile
+            partner — the milestones that shaped Ambica.
           </Reveal>
         </div>
 

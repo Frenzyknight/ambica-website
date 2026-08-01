@@ -120,19 +120,19 @@ export default function DesignPage() {
         <div className="flex flex-col gap-10">
           <div>
             <p className="mb-2 font-mono text-xs text-muted">
-              text-display-lg · clamp(3.5rem → 6.5rem) · -0.035em
+              text-display-lg · clamp(2.5rem → 6.5rem) · -0.035em
             </p>
             <p className="text-display-lg">Woven to last</p>
           </div>
           <div>
             <p className="mb-2 font-mono text-xs text-muted">
-              text-display · clamp(2.75rem → 4.5rem) · -0.03em
+              text-display · clamp(2rem → 4.5rem) · -0.03em
             </p>
             <p className="text-display">A mark of quality</p>
           </div>
           <div>
             <p className="mb-2 font-mono text-xs text-muted">
-              text-display-sm · clamp(2rem → 3rem) · -0.02em
+              text-display-sm · clamp(1.75rem → 3rem) · -0.02em
             </p>
             <p className="text-display-sm">Fabric, felt first</p>
           </div>

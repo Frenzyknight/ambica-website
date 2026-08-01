@@ -219,7 +219,7 @@ export default function ClothCanvas({ className }: { className?: string }) {
         // Albedo: warm beige tinted by the scan's thread structure. The scan
         // is near-neutral, so only its variation matters, not its color.
         float weave = smoothstep(0.55, 1.0, wl);
-        vec3 albedo = vec3(0.42, 0.36, 0.28) * mix(0.8, 1.28, weave);
+        vec3 albedo = vec3(0.62, 0.46, 0.16) * mix(0.8, 1.28, weave);
 
         // Key light: warm, grazing from the upper-left.
         vec3 keyDir = normalize(vec3(-0.68, 0.34, 0.45));
@@ -238,8 +238,8 @@ export default function ClothCanvas({ className }: { className?: string }) {
         // tighter hot streak, both modulated by the weave.
         vec3 hv = normalize(keyDir + viewDir);
         float ndh = max(dot(n, hv), 0.0);
-        col += pow(ndh, 24.0) * vec3(0.92, 0.84, 0.68) * 0.22;
-        col += pow(ndh, 90.0) * vec3(0.98, 0.90, 0.76) * (0.45 + 0.35 * weave);
+        col += pow(ndh, 24.0) * vec3(0.95, 0.80, 0.48) * 0.22;
+        col += pow(ndh, 90.0) * vec3(1.0, 0.88, 0.55) * (0.45 + 0.35 * weave);
 
         // Cursor: warm neutral light that rides with the pointer.
         vec3 lightPos = vec3(uMouse.xy, 0.5);

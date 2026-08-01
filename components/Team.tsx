@@ -8,41 +8,63 @@ import { Reveal, RevealEyebrow } from "./RevealText";
 
 type Member = {
   name: string;
-  role: string;
+  role?: string;
+  focus: string;
   photo: string;
   linkedin: string;
   facebook: string;
 };
 
-// TODO: swap in the live company profile URLs before launch.
+const LINKEDIN = "https://www.linkedin.com/company/ambica-synfab/";
+const FACEBOOK = "https://www.facebook.com/people/Ambica-Synfab/61577942832790/";
+
 const team: Member[] = [
   {
-    name: "Rajesh Mehta",
+    name: "Pramod Agarwal",
     role: "Managing Director",
-    photo: "/team/rajesh-mehta.jpg",
-    linkedin: "https://www.linkedin.com/company/ambica-synfab/",
-    facebook: "https://www.facebook.com/people/Ambica-Synfab/61577942832790/",
+    focus: "Sales & Customer Relationships",
+    photo: "/team/pramod.jpeg",
+    linkedin: LINKEDIN,
+    facebook: FACEBOOK,
   },
   {
-    name: "Ananya Sharma",
-    role: "Head of Production",
-    photo: "/team/ananya-sharma.jpg",
-    linkedin: "https://www.linkedin.com/company/ambica-synfab/",
-    facebook: "https://www.facebook.com/people/Ambica-Synfab/61577942832790/",
+    name: "Anand Agarwal",
+    role: "Managing Director",
+    focus: "Product Development & Production",
+    photo: "/team/anand.jpeg",
+    linkedin: LINKEDIN,
+    facebook: FACEBOOK,
   },
   {
-    name: "Vikram Desai",
-    role: "Quality Control Manager",
-    photo: "/team/vikram-desai.jpg",
-    linkedin: "https://www.linkedin.com/company/ambica-synfab/",
-    facebook: "https://www.facebook.com/people/Ambica-Synfab/61577942832790/",
+    name: "Pawan Agarwal",
+    role: "Managing Director",
+    focus: "Finance & Backend Operations",
+    photo: "/team/pawan.jpeg",
+    linkedin: LINKEDIN,
+    facebook: FACEBOOK,
   },
   {
-    name: "Meera Iyer",
-    role: "Master Weaver",
-    photo: "/team/meera-iyer.jpg",
-    linkedin: "https://www.linkedin.com/company/ambica-synfab/",
-    facebook: "https://www.facebook.com/people/Ambica-Synfab/61577942832790/",
+    name: "Nirbhay Agarwal",
+    role: "Founder & CEO",
+    focus: "Nirbhay Textile Mill",
+    photo: "/team/nippo.jpeg",
+    linkedin: LINKEDIN,
+    facebook: FACEBOOK,
+  },
+  {
+    name: "Dharun Agarwal",
+    role: "Founder & CEO",
+    focus: "Dharun Textile Mill",
+    photo: "/team/dharun.jpeg",
+    linkedin: LINKEDIN,
+    facebook: FACEBOOK,
+  },
+  {
+    name: "Manav Agarwal",
+    focus: "Marketing & Production",
+    photo: "/team/Manav.jpeg",
+    linkedin: LINKEDIN,
+    facebook: FACEBOOK,
   },
 ];
 
@@ -99,6 +121,22 @@ function FacebookIcon() {
   );
 }
 
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`h-4 w-4 ${direction === "left" ? "rotate-180" : ""}`}
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
 function MemberCard({ member }: { member: Member }) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -122,10 +160,10 @@ function MemberCard({ member }: { member: Member }) {
       <div className="relative aspect-4/5 overflow-hidden rounded-2xl border border-border bg-surface">
         <Image
           src={member.photo}
-          alt={`Portrait of ${member.name}, ${member.role} at Ambica`}
+          alt={`Portrait of ${member.name}, ${member.role ?? member.focus} at Ambica`}
           fill
-          sizes="(min-width: 1024px) 25vw, 50vw"
-          className="object-cover"
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 80vw"
+          className="object-cover object-center"
         />
 
         <div
@@ -184,12 +222,115 @@ function MemberCard({ member }: { member: Member }) {
       </div>
 
       <div className="mt-4 text-center">
-        <Reveal as="p" y={16} className="font-mono text-xs font-semibold uppercase tracking-[0.2em]">
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em]">
           {member.name}
-        </Reveal>
-        <Reveal as="p" delay={0.05} y={12} className="mt-1 text-sm text-muted">
-          {member.role}
-        </Reveal>
+        </p>
+        {member.role && (
+          <p className="mt-1.5 text-sm font-medium text-foreground">
+            {member.role}
+          </p>
+        )}
+        <p className="mt-0.5 text-sm text-muted">{member.focus}</p>
+      </div>
+    </div>
+  );
+}
+
+function TeamCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      setAtStart(el.scrollLeft <= 1);
+      setAtEnd(el.scrollLeft >= max - 1);
+      setProgress(max > 0 ? el.scrollLeft / max : 0);
+    };
+
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      ro.disconnect();
+    };
+  }, []);
+
+  // One card plus its gap — read off the DOM so it stays right across breakpoints.
+  const scrollByCard = (direction: 1 | -1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const first = el.firstElementChild as HTMLElement | null;
+    const second = el.children[1] as HTMLElement | null;
+    const step =
+      first && second
+        ? second.offsetLeft - first.offsetLeft
+        : (first?.offsetWidth ?? el.clientWidth);
+    el.scrollBy({ left: step * direction, behavior: "smooth" });
+  };
+
+  return (
+    <div className="mt-14 lg:mt-16">
+      <div
+        ref={trackRef}
+        tabIndex={0}
+        role="group"
+        aria-label="Ambica leadership team"
+        className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth px-[8vw] scrollbar-none sm:px-6 lg:-mx-10 lg:gap-8 lg:px-10 [&::-webkit-scrollbar]:hidden"
+      >
+        {team.map((member, i) => (
+          <motion.div
+            key={member.name}
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{
+              duration: 0.7,
+              delay: Math.min(i, 3) * 0.08,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="w-[84vw] shrink-0 snap-center sm:w-[calc((100%-1.5rem)/2)] sm:snap-start lg:w-[calc((100%-4rem)/3)]"
+          >
+            <MemberCard member={member} />
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex items-center gap-6">
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => scrollByCard(-1)}
+            disabled={atStart}
+            aria-label="Previous team members"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface-raised text-foreground transition-all duration-300 ease-out-expo hover:border-brand-500 hover:text-brand-400 disabled:pointer-events-none disabled:opacity-35"
+          >
+            <ArrowIcon direction="left" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollByCard(1)}
+            disabled={atEnd}
+            aria-label="Next team members"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface-raised text-foreground transition-all duration-300 ease-out-expo hover:border-brand-500 hover:text-brand-400 disabled:pointer-events-none disabled:opacity-35"
+          >
+            <ArrowIcon direction="right" />
+          </button>
+        </div>
+
+        <div aria-hidden className="h-px flex-1 bg-border">
+          <div
+            className="h-px origin-left bg-brand-500 transition-transform duration-300 ease-out-expo"
+            style={{ transform: `scaleX(${0.2 + progress * 0.8})` }}
+          />
+        </div>
       </div>
     </div>
   );
@@ -230,11 +371,7 @@ export default function Team({ className = "" }: { className?: string }) {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid grid-cols-2 gap-6 lg:mt-16 lg:grid-cols-4 lg:gap-8">
-          {team.map((member) => (
-            <MemberCard key={member.name} member={member} />
-          ))}
-        </div>
+        <TeamCarousel />
       </div>
     </section>
   );

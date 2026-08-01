@@ -30,7 +30,7 @@ const subsidiaries = [
     tagline: "The Symbol of Quality",
     description:
       "Specialises in plain dyeing and a wide variety of fancy shirting qualities, bringing depth of colour and finish to every bolt with a relentless focus on consistency.",
-    image: "/dtm-hero.jpeg",
+    image: "/dtm-image.jpeg",
     imageAlt:
       "Dharun Textile Mill team presenting striped shirting fabric at a textile exhibition",
     accent: "#3b3392",

@@ -47,7 +47,7 @@ export default function Hero() {
             as="p"
             immediate
             delay={0.55}
-            className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-ink-300"
+            className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-ink-300 sm:text-lg"
           >
             Three generations of manufacturing, and obsessing over the drape.
             Ambica synfab is made to move.

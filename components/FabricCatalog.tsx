@@ -73,31 +73,6 @@ const groups: Group[] = [
     ],
   },
   {
-    id: "home",
-    label: "Home",
-    heading: "Home Fabrics",
-    fabrics: [
-      {
-        name: "Cotton Sateen Bedding",
-        spec: "300 TC",
-        image: "/fabrics/home-sateen.png",
-        alt: "Ivory cotton sateen bedding draped with a soft sheen",
-      },
-      {
-        name: "Chenille Upholstery",
-        spec: "340 GSM",
-        image: "/fabrics/home-chenille.png",
-        alt: "Terracotta chenille upholstery with plush pile texture",
-      },
-      {
-        name: "Waffle Weave Towelling",
-        spec: "420 GSM",
-        image: "/fabrics/home-waffle.png",
-        alt: "Sage green waffle weave towelling with honeycomb texture",
-      },
-    ],
-  },
-  {
     id: "specialty",
     label: "Specialty",
     heading: "Specialty Fabrics",
