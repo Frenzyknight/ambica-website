@@ -21,7 +21,7 @@ export default function AboutPage() {
             About <span className="text-brand-400">Us</span>
           </>
         }
-        image="/hero-about.jpeg"
+        image="/hero-about.webp"
         imageAlt="Close-up of a hand weaving indigo threads on a traditional wooden loom"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
       />

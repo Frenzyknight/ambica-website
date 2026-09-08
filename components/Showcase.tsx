@@ -3,34 +3,35 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Reveal, RevealEyebrow } from "./RevealText";
+import WeaveTexture from "./WeaveTexture";
 
 const panels = [
   {
     title: "Apparel & Casual Wear",
     description:
       "Cotton, cotton twill, cotton-linen blends and rayon flex — soft, breathable cloth for everyday wear.",
-    image: "/cotton.jpeg",
+    image: "/cotton.webp",
     alt: "Folded plaid and striped cotton fabrics stacked on a table",
   },
   {
     title: "Shirting",
     description:
       "Structured shirtings in PV and rayon-viscose blends — crisp hand, clean drape, built for tailored precision.",
-    image: "/shirting-product.jpeg",
+    image: "/shirting-product.webp",
     alt: "Stack of folded striped dress shirts on a wooden table",
   },
   {
-    title: "Suiting",
+    title: "Casual Bottoms",
     description:
-      "Suitings in wool, linen and silk blends — weight, texture and finish for formal and smart-casual wear.",
-    image: "/suiting-product.jpeg",
-    alt: "Tailoring threads and suiting fabrics with a jacket on a mannequin",
+      "Cotton satin twills and tussar — smooth, substantial cloth for shorts, trousers and drawstring bottoms.",
+    image: "/casual-bottoms.webp",
+    alt: "Folded grey stripe shorts beside a stack of the same stripe cloth in six colourways",
   },
   {
     title: "Prints, Dyes & Custom Development",
     description:
       "Printed and plain-dyed fabrics, plus bespoke fabric development to your exact specification.",
-    image: "/printed.jpeg",
+    image: "/printed.webp",
     alt: "Colourful dyed and printed fabric rolls with dye vats",
   },
 ];
@@ -109,15 +110,7 @@ export default function Showcase() {
   return (
     <section className="dark relative isolate overflow-hidden bg-ink-950 text-foreground">
       {/* woven fabric texture — matches footer */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.09] mix-blend-screen"
-        style={{
-          backgroundImage: "url(/texture-final.jpg)",
-          backgroundSize: "480px",
-          backgroundRepeat: "repeat",
-        }}
-      />
+      <WeaveTexture />
       <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-24 lg:px-10 lg:pt-28">
         <div className="text-center">
           <RevealEyebrow centered>The possibility of Fabric</RevealEyebrow>
@@ -158,7 +151,7 @@ export default function Showcase() {
                   fill
                   sizes="(min-width: 1024px) 28vw, (min-width: 640px) 70vw, 84vw"
                   className="object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
-                  priority={i === 0}
+                  preload={i === 0}
                 />
 
                 {/* Deep image fade keeps the copy legible without another card. */}

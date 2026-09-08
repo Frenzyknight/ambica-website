@@ -75,7 +75,7 @@ function Photo({
         fill
         sizes={sizes ?? "(min-width: 1024px) 50vw, 100vw"}
         className="object-cover"
-        priority={priority}
+        preload={priority}
       />
     </div>
   );
@@ -88,8 +88,8 @@ export default function About() {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left — hero image */}
           <Photo
-            src="/about-home.jpeg"
-            alt="Weaver walking the loom floor at the Ambica mill"
+            src="/about-mill-floor.webp"
+            alt="Weaver inspecting freshly woven greige cloth coming off the beam at the Ambica mill"
             className="aspect-4/5 w-full lg:aspect-auto lg:h-full lg:min-h-[460px]"
             sizes="(min-width: 1024px) 50vw, 100vw"
           />
@@ -112,25 +112,25 @@ export default function About() {
 
             <RevealEyebrow>About the Company</RevealEyebrow>
             <Reveal as="h2" className="max-w-xl text-balance text-display-sm uppercase">
-              Premium textile manufacturing from{" "}
-              <span className="text-brand-600">weaving</span> to finished
+              Premium textile sourcing from{" "}
+              <span className="text-brand-600">raw material</span> to finished
               cloth
             </Reveal>
             <Reveal as="p" delay={0.08} className="mt-5 max-w-lg text-pretty leading-relaxed text-muted">
               End-to-end manufacturing covers weaving, dyeing, finishing and
-              quality assurance — so brands can stay focused on design while
+              quality assurance, so brands can stay focused on design while
               we obsess over the drape.
             </Reveal>
 
             <div className="relative mt-8 grid grid-cols-2 gap-4">
               <Photo
-                src="/square-1.jpeg"
-                alt="Yarn being threaded onto the loom by hand"
+                src="/about-yarn.webp"
+                alt="Raw cotton yarn cones on a creel rack, a single thread drawn by hand"
                 className="aspect-square"
                 sizes="(min-width: 1024px) 25vw, 50vw"
               />
               <Photo
-                src="/square-2.jpeg"
+                src="/square-2.webp"
                 alt="Quality check of finished denim fabric on a light table"
                 className="aspect-square"
                 sizes="(min-width: 1024px) 25vw, 50vw"
@@ -144,7 +144,7 @@ export default function About() {
                 <span className="mt-1 font-mono text-[9px] uppercase leading-tight tracking-[0.18em] lg:text-[10px]">
                   Years of
                   <br />
-                  Manufacturing
+                  Sourcing
                 </span>
               </div>
             </div>

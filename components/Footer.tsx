@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal, RevealEyebrow } from "./RevealText";
+import WeaveTexture from "./WeaveTexture";
 
 const explore = [
   { label: "Home", href: "/" },
@@ -67,33 +68,18 @@ export default function Footer() {
   return (
     <footer className="dark relative isolate overflow-hidden bg-ink-950 text-foreground">
       {/* woven fabric texture */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.09] mix-blend-screen"
-        style={{
-          backgroundImage: "url(/texture-final.jpg)",
-          backgroundSize: "480px",
-          backgroundRepeat: "repeat",
-        }}
-      />
+      <WeaveTexture />
       <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-10 lg:px-10 lg:pt-28">
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1.2fr] lg:gap-16">
           {/* Brand */}
           <div>
             <Image
-              src="/ambica-logo-light.png"
+              src="/ambica-logo-light.webp"
               alt="Ambica — a mark of quality"
-              width={132}
+              width={133}
               height={94}
             />
-            <Reveal as="h2" className="mt-8 max-w-md text-balance text-display-sm uppercase text-ink-50">
-              Woven for a<br />
-              <span className="text-brand-400">life of</span> quality
-            </Reveal>
-            <Reveal as="p" delay={0.08} className="mt-5 max-w-sm text-pretty text-sm leading-relaxed text-ink-400">
-              Three generations at the loom, obsessing over drape, weight and
-              feel — crafting premium cloth that moves, breathes and lasts.
-            </Reveal>
+           
 
             <div className="mt-8 flex items-center gap-3">
               {socials.map((s) => (
@@ -161,7 +147,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="mt-1.5 block text-sm leading-relaxed text-ink-200 transition-colors hover:text-brand-400"
                   >
-                    187-188 &amp; 32, New Cloth Market,
+                    187-188 &amp; 32, Ambica,
                     <br />
                     Opposite Raipur Gate, New Cloth Market,
                     <br />
@@ -179,12 +165,16 @@ export default function Footer() {
                     Phones
                   </p>
                   <p className="mt-1.5 text-sm leading-relaxed text-ink-200">
-                    <a href="tel:+917049026500" className="transition-colors hover:text-brand-400">
-                      +91 70490 26500
+                    <a href="tel:+919979222457" className="transition-colors hover:text-brand-400">
+                      +91 99792 22457
                     </a>
                     <br />
                     <a href="tel:+917567360244" className="transition-colors hover:text-brand-400">
                       +91 75673 60244
+                    </a>
+                    <br />
+                    <a href="tel:+918980370557" className="transition-colors hover:text-brand-400">
+                      +91 89803 70557
                     </a>
                   </p>
                 </div>
@@ -205,6 +195,13 @@ export default function Footer() {
                       className="transition-colors hover:text-brand-400"
                     >
                       ambicasynfabpvtltd1857@gmail.com
+                    </a>
+                  </p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink-200">
+                  <a href="mailto:info@ambicasynfab.com"
+                      className="transition-colors hover:text-brand-400"
+                    >
+                    info@ambicasynfab.com
                     </a>
                   </p>
                 </div>
@@ -228,7 +225,7 @@ export default function Footer() {
           />
           <div className="flex flex-col items-center justify-between gap-6 pt-8 sm:flex-row">
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-ink-500">
-              © {new Date().getFullYear()} Ambica synfab · A mark of quality
+              ©  Ambica synfab · A mark of quality
             </p>
             <Link
               href="/"

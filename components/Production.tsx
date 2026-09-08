@@ -5,41 +5,42 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { Reveal, RevealEyebrow } from "./RevealText";
+import WeaveTexture from "./WeaveTexture";
 
 const steps = [
   {
     title: "Procurement of Grey Fabric",
     description:
       "Premium-quality grey fabric is sourced from reputed weaving units, each lot selected against the customer's specifications — composition, construction, GSM and width.",
-    image: "/Procurement.jpeg",
+    image: "/Procurement.webp",
     imageAlt: "Grey fabric rolls stacked in a warehouse for procurement",
   },
   {
     title: "Processing",
     description:
       "Pre-inspected fabric is sent to our best-in-class processing partners for dyeing, printing and finishing — coordinated closely to lock in the desired shade and finish.",
-    image: "/Processing.jpeg",
+    image: "/Processing.webp",
     imageAlt: "Fabric being dyed and finished on industrial processing machines",
   },
   {
     title: "Quality Check",
     description:
       "Every roll is visually inspected for shade consistency, appearance and overall quality before dispatch, so it meets customer expectations before it leaves us.",
-    image: "/Quality%20Check.jpeg",
+    image: "/quality-check.webp",
     imageAlt: "Inspector examining fabric quality with a magnifying glass",
   },
   {
     title: "Rolling & Packaging",
     description:
       "Finished fabric is packed in standard 100-metre rolls, or in customised lengths and packaging as specified — with custom labelling available on request.",
-    image: "/Packaging.jpeg",
+    image: "/Packaging.webp",
     imageAlt: "Finished fabric rolls being wrapped and stacked on pallets",
   },
   {
     title: "Dispatch",
     description:
       "Packed fabric is dispatched through reliable logistics partners, ensuring timely and secure delivery across domestic and international markets.",
-    image: "/export.jpeg",
+    image: "/export.webp",
     imageAlt: "Fabric rolls being loaded into a shipping container for export",
   },
 ];
@@ -142,15 +143,7 @@ function StepCard({
         className="relative isolate w-full max-w-md overflow-hidden rounded-[1.75rem] border border-border bg-white p-6 text-ink-950 shadow-lift lg:sticky lg:top-28 lg:h-fit lg:self-start lg:p-7"
       >
         {/* woven fabric texture */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-multiply"
-          style={{
-            backgroundImage: "url(/texture-final.jpg)",
-            backgroundSize: "280px",
-            backgroundRepeat: "repeat",
-          }}
-        />
+        <WeaveTexture size={280} opacity={0.18} blend="multiply" />
 
         <div className="relative">
           <Reveal as="h3" y={20} className="text-2xl font-semibold tracking-tight lg:text-[1.75rem]">

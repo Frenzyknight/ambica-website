@@ -1,6 +1,7 @@
 "use client";
 
 import { Reveal, RevealEyebrow } from "./RevealText";
+import WeaveTexture from "./WeaveTexture";
 
 // TODO: replace with the live Google Form link before launch.
 const LEAD_FORM_URL = "https://forms.gle/REPLACE_WITH_FORM_ID";
@@ -11,15 +12,7 @@ export default function CtaConsultation() {
       <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
         <div className="dark relative isolate overflow-hidden rounded-3xl border border-border bg-ink-950 px-8 py-16 text-center shadow-lift sm:px-12 lg:px-16 lg:py-20">
           {/* woven fabric texture */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-[0.09] mix-blend-screen"
-            style={{
-              backgroundImage: "url(/texture-final.jpg)",
-              backgroundSize: "480px",
-              backgroundRepeat: "repeat",
-            }}
-          />
+          <WeaveTexture />
           <div className="relative">
             <RevealEyebrow centered className="text-brand-400">
               Get a custom quote

@@ -19,7 +19,7 @@ export default function FabricsPage() {
             Our <span className="text-brand-400">Fabrics</span>
           </>
         }
-        image="/cotton.jpeg"
+        image="/cotton.webp"
         imageAlt="Folded plaid and striped cotton fabrics stacked on a table"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Fabrics" }]}
       />

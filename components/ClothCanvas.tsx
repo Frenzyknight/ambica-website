@@ -45,8 +45,14 @@ export default function ClothCanvas({ className }: { className?: string }) {
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+    // On touch devices the drag-to-crease interaction is unusable (a drag is a
+    // scroll), and the per-pixel cloth shader is the single biggest mobile GPU
+    // cost. So phones get one static frame instead of the live simulation.
+    const touchDevice = window.matchMedia(
+      "(hover: none) and (pointer: coarse)"
+    ).matches;
     // Without float render targets there is no ripple sim; render a still.
-    const staticScene = reducedMotion || !floatExt;
+    const staticScene = reducedMotion || !floatExt || touchDevice;
 
     // ------------------------------------------------------------- shaders
     // Drape folds shared by the sim-independent height function. uv.y = 1 is
@@ -343,8 +349,10 @@ export default function ClothCanvas({ className }: { className?: string }) {
     gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
 
     // Dense grid for the render pass (uv-only; height comes from textures).
-    const GRID_X = 220;
-    const GRID_Y = 132;
+    // The static path never displaces the grid beyond the procedural folds, so
+    // a much coarser mesh is indistinguishable and skips ~56k triangles.
+    const GRID_X = staticScene ? 96 : 220;
+    const GRID_Y = staticScene ? 64 : 132;
     const gridVao = gl.createVertexArray();
     gl.bindVertexArray(gridVao);
     const gridBuf = gl.createBuffer();
@@ -452,7 +460,7 @@ export default function ClothCanvas({ className }: { className?: string }) {
     // it can reject on cached images (common when arriving via client-side
     // navigation), so we must never depend on it alone.
     clothImg.onload = () => uploadCloth(clothImg);
-    clothImg.src = "/texture-final.jpg";
+    clothImg.src = "/texture-tile.webp";
     clothImg
       .decode()
       .then(() => uploadCloth(clothImg))
@@ -467,8 +475,10 @@ export default function ClothCanvas({ className }: { className?: string }) {
       pair: { tex: WebGLTexture; fbo: WebGLFramebuffer }[];
       read: number;
     };
-    const SIM_W = 384;
-    let simH = 216;
+    // At rest both fields are uniformly zero, so the static path only needs a
+    // tiny sim texture — it exists purely to satisfy the sampler uniforms.
+    const SIM_W = staticScene ? 64 : 384;
+    let simH = staticScene ? 36 : 216;
     const creaseF: Field = { pair: [], read: 0 };
     const wrinkleF: Field = { pair: [], read: 0 };
 
@@ -530,13 +540,22 @@ export default function ClothCanvas({ className }: { className?: string }) {
     let worldW = 0;
     let worldH = 0;
     let aspect = 1;
+    // Last laid-out CSS size, so `onResize` can ignore mobile URL-bar reflows.
+    let lastW = 0;
+    let lastH = 0;
 
     function layout() {
       // Cap the backing resolution: per-pixel cloth shading at full retina
       // DPR is the single biggest cost, and 1.5 is visually indistinguishable.
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      // Touch devices get a tighter cap since they render only a static frame.
+      const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        touchDevice ? 1.25 : 1.5
+      );
       const w = canvas!.clientWidth;
       const h = canvas!.clientHeight;
+      lastW = w;
+      lastH = h;
       canvas!.width = Math.max(1, Math.round(w * dpr));
       canvas!.height = Math.max(1, Math.round(h * dpr));
 
@@ -547,7 +566,9 @@ export default function ClothCanvas({ className }: { className?: string }) {
       worldW = halfW * 2 * 1.1;
       worldH = halfH * 2 * 1.1;
 
-      simH = Math.max(128, Math.min(384, Math.round(SIM_W / aspect)));
+      simH = staticScene
+        ? Math.max(16, Math.min(128, Math.round(SIM_W / aspect)))
+        : Math.max(128, Math.min(384, Math.round(SIM_W / aspect)));
       makeSimTargets();
 
       const f = 1 / Math.tan(FOV / 2);
@@ -615,7 +636,21 @@ export default function ClothCanvas({ className }: { className?: string }) {
     const onPointerLeave = () => {
       mouse.on = false;
     };
-    const onResize = () => layout();
+    // Coalesce resizes into a frame, ignore mobile URL-bar show/hide (width
+    // unchanged + small height delta), and repaint after a real relayout since
+    // reassigning canvas.width clears it — the static path has no loop to redraw.
+    let resizeRaf = 0;
+    const onResize = () => {
+      if (resizeRaf) return;
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = 0;
+        const w = canvas!.clientWidth;
+        const h = canvas!.clientHeight;
+        if (w === lastW && Math.abs(h - lastH) < 120) return;
+        layout();
+        if (staticScene) renderPass();
+      });
+    };
 
     // --------------------------------------------------------------- loop
     const DT = 1 / 60;
@@ -721,6 +756,18 @@ export default function ClothCanvas({ className }: { className?: string }) {
     let accumulator = 0;
     let lastT = performance.now();
 
+    // Tell the preloader the hero backdrop is on screen, once, on the frame
+    // after our first draw. The preloader waits for this instead of a timer.
+    let painted = false;
+    function signalPainted() {
+      if (painted) return;
+      painted = true;
+      requestAnimationFrame(() => {
+        (window as { __heroPainted?: boolean }).__heroPainted = true;
+        window.dispatchEvent(new Event("hero:painted"));
+      });
+    }
+
     function frame(now: number) {
       raf = requestAnimationFrame(frame);
       if (!visible) return;
@@ -736,12 +783,16 @@ export default function ClothCanvas({ className }: { className?: string }) {
         accumulator -= DT;
         stepped = true;
       }
-      if (stepped) renderPass();
+      if (stepped) {
+        renderPass();
+        signalPainted();
+      }
     }
 
     if (staticScene) {
       time = 4;
       renderPass();
+      signalPainted();
     } else {
       lastT = performance.now();
       raf = requestAnimationFrame(frame);
@@ -768,6 +819,7 @@ export default function ClothCanvas({ className }: { className?: string }) {
     return () => {
       disposed = true;
       cancelAnimationFrame(raf);
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
       io.disconnect();
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerdown", onPointerDown);

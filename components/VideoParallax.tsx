@@ -15,6 +15,9 @@ export default function VideoParallax() {
   const raf = useRef(0);
   const [soundOn, setSoundOn] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  // The video weighs ~1.5MB, so we don't fetch it on page load. It only starts
+  // loading once the reveal window nears the viewport (see the observer below).
+  const [activated, setActivated] = useState(false);
 
   const { scrollY } = useScroll();
 
@@ -68,6 +71,35 @@ export default function VideoParallax() {
       document.removeEventListener("fullscreenchange", onFullscreenChange);
   }, []);
 
+  // Defer the video download until the reveal window is within ~1.5 viewports,
+  // then let the <source> elements mount. `rootMargin` gives it a head start so
+  // it's decoded and playing by the time the window scrolls onto it.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || activated) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActivated(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "150% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [activated]);
+
+  // Once the sources are in the DOM, kick off the load + autoplay explicitly —
+  // `preload="none"` means the element won't fetch on its own.
+  useEffect(() => {
+    if (!activated) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.load();
+    v.play().catch(() => {});
+  }, [activated]);
+
   const clipPath = useMotionTemplate`inset(${topInset}px 0px ${bottomInset}px 0px)`;
 
   const toggleSound = () => {
@@ -115,15 +147,22 @@ export default function VideoParallax() {
         <video
           ref={videoRef}
           className="h-full w-full object-cover"
-          src="/video-hero.mp4"
+          poster="/video-showcase-poster.webp"
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="none"
           controls={isFullscreen}
           controlsList="nodownload noremoteplayback"
-        />
+        >
+          {activated && (
+            <>
+              <source src="/video-showcase.webm" type="video/webm" />
+              <source src="/video-showcase.mp4" type="video/mp4" />
+            </>
+          )}
+        </video>
 
         {/* Legibility scrims */}
         <div className="absolute inset-0 bg-linear-to-b from-ink-950/55 via-ink-950/15 to-ink-950/65" />

@@ -20,18 +20,10 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     quote:
-      "We have repeated the same shirting quality four seasons running and the shade card still matches lot for lot. That kind of consistency is rare.",
+      "We have repeated the same shirting quality four seasons running and the shade card still matches lot for lot.",
     name: "Rohit Agarwal",
     role: "Garment Manufacturer",
     initials: "RA",
-    rating: 5,
-  },
-  {
-    quote:
-      "The suiting drapes exactly the way my clients expect and holds a press through a full wedding season. My cutters ask for Ambica cloth by name now.",
-    name: "Meera Iyer",
-    role: "Bespoke Tailor",
-    initials: "MI",
     rating: 5,
   },
   {

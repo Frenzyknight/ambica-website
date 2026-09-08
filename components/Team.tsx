@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Reveal, RevealEyebrow } from "./RevealText";
+import WeaveTexture from "./WeaveTexture";
 
 type Member = {
   name: string;
@@ -23,7 +24,7 @@ const team: Member[] = [
     name: "Pramod Agarwal",
     role: "Managing Director",
     focus: "Sales & Customer Relationships",
-    photo: "/team/pramod.jpeg",
+    photo: "/team/pramod.webp",
     linkedin: LINKEDIN,
     facebook: FACEBOOK,
   },
@@ -31,7 +32,7 @@ const team: Member[] = [
     name: "Anand Agarwal",
     role: "Managing Director",
     focus: "Product Development & Production",
-    photo: "/team/anand.jpeg",
+    photo: "/team/anand.webp",
     linkedin: LINKEDIN,
     facebook: FACEBOOK,
   },
@@ -39,33 +40,34 @@ const team: Member[] = [
     name: "Pawan Agarwal",
     role: "Managing Director",
     focus: "Finance & Backend Operations",
-    photo: "/team/pawan.jpeg",
-    linkedin: LINKEDIN,
-    facebook: FACEBOOK,
-  },
-  {
-    name: "Nirbhay Agarwal",
-    role: "Founder & CEO",
-    focus: "Nirbhay Textile Mill",
-    photo: "/team/nippo.jpeg",
-    linkedin: LINKEDIN,
-    facebook: FACEBOOK,
-  },
-  {
-    name: "Dharun Agarwal",
-    role: "Founder & CEO",
-    focus: "Dharun Textile Mill",
-    photo: "/team/dharun.jpeg",
+    photo: "/team/pawan.webp",
     linkedin: LINKEDIN,
     facebook: FACEBOOK,
   },
   {
     name: "Manav Agarwal",
     focus: "Marketing & Production",
-    photo: "/team/Manav.jpeg",
+    photo: "/team/Manav.webp",
     linkedin: LINKEDIN,
     facebook: FACEBOOK,
   },
+  {
+    name: "Nirbhay Agarwal",
+    role: "Founder",
+    focus: "Nirbhay Textile Mill",
+    photo: "/team/nirbhay.webp",
+    linkedin: LINKEDIN,
+    facebook: FACEBOOK,
+  },
+  {
+    name: "Dharun Agarwal",
+    role: "Founder",
+    focus: "Dharun Textile Mill",
+    photo: "/team/dharun.webp",
+    linkedin: LINKEDIN,
+    facebook: FACEBOOK,
+  }
+ 
 ];
 
 function ShareIcon() {
@@ -343,15 +345,7 @@ export default function Team({ className = "" }: { className?: string }) {
       className={`dark relative isolate overflow-hidden bg-ink-950 text-foreground ${className}`}
     >
       {/* woven fabric texture — matches footer */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.09] mix-blend-screen"
-        style={{
-          backgroundImage: "url(/texture-final.jpg)",
-          backgroundSize: "480px",
-          backgroundRepeat: "repeat",
-        }}
-      />
+      <WeaveTexture />
       <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
           <div>

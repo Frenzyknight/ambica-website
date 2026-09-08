@@ -24,14 +24,18 @@ export default function PageHero({
 }) {
   return (
     <section className="dark sticky top-0 z-0 flex h-[50vh] min-h-[420px] w-full items-center justify-center overflow-hidden bg-ink-950 text-foreground">
-      <Image
-        src={image}
-        alt={imageAlt}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
+      {/* `fill` needs an absolute/relative/fixed parent; the section is sticky,
+          so anchor the image to an absolute wrapper instead. */}
+      <div className="absolute inset-0">
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          preload
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
 
       {/* Legibility scrims */}
       <div className="pointer-events-none absolute inset-0 bg-ink-950/55" />

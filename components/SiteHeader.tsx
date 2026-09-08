@@ -34,11 +34,12 @@ export default function SiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
         <Link href="/" className="pointer-events-auto" onClick={() => setOpen(false)}>
           <Image
-            src="/ambica-logo-light.png"
+            src="/ambica-logo-light.webp"
             alt="Ambica — a mark of quality"
             width={180}
             height={128}
-            priority
+            loading="eager"
+            fetchPriority="high"
             className="h-auto w-30 md:w-45"
           />
         </Link>
@@ -152,7 +153,7 @@ export default function SiteHeader() {
                   className="absolute inset-x-0 bottom-10 flex justify-center"
                 >
                   <Image
-                    src="/ambica-logo-light.png"
+                    src="/ambica-logo-light.webp"
                     alt="Ambica — a mark of quality"
                     width={110}
                     height={78}

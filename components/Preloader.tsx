@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 // How many charcoal panels sweep away during the reveal. Each one leaves on a
@@ -37,6 +37,8 @@ export default function Preloader() {
   const [dismissed, setDismissed] = useState(false);
   const [phase, setPhase] = useState<"loading" | "revealing">("loading");
   const [count, setCount] = useState(0);
+  // Set once the hero has painted its first frame; the reveal waits on this.
+  const heroReadyRef = useRef(false);
 
   const visible = !alreadyPreloaded && !dismissed;
 
@@ -50,23 +52,45 @@ export default function Preloader() {
     };
   }, [visible]);
 
-  // Run the counter, then trigger the reveal.
+  // Listen for the hero's first paint. The curtain lifts the moment the page
+  // is actually on screen rather than after a fixed timer. A generous fallback
+  // guarantees the curtain never hangs if the hero never signals (e.g. WebGL
+  // context creation failed).
+  useEffect(() => {
+    if (!visible) return;
+    const markReady = () => {
+      heroReadyRef.current = true;
+    };
+    if ((window as { __heroPainted?: boolean }).__heroPainted) markReady();
+    window.addEventListener("hero:painted", markReady);
+    const fallback = window.setTimeout(markReady, reduceMotion ? 800 : 4000);
+    return () => {
+      window.removeEventListener("hero:painted", markReady);
+      window.clearTimeout(fallback);
+    };
+  }, [visible, reduceMotion]);
+
+  // Run the counter, then trigger the reveal once the hero has painted.
   useEffect(() => {
     if (!visible || phase !== "loading") return;
 
-    const duration = reduceMotion ? 500 : 1600;
+    const duration = reduceMotion ? 400 : 1100;
     const start = performance.now();
     let frame = 0;
 
     const tick = (now: number) => {
       const t = Math.min((now - start) / duration, 1);
-      // Ease-out so the number decelerates into 100.
+      // Ease-out so the number decelerates as it climbs.
       const eased = 1 - Math.pow(1 - t, 3);
-      setCount(Math.round(eased * 100));
-      if (t < 1) {
+      const ready = heroReadyRef.current;
+      // Hold just shy of 100 until the hero has painted, so the number never
+      // sits at 100 while the curtain waits.
+      setCount(Math.round(eased * (ready ? 100 : 96)));
+      if (t < 1 || !ready) {
         frame = requestAnimationFrame(tick);
       } else {
-        setTimeout(() => setPhase("revealing"), reduceMotion ? 100 : 260);
+        setCount(100);
+        setTimeout(() => setPhase("revealing"), reduceMotion ? 80 : 180);
       }
     };
 
@@ -121,11 +145,12 @@ export default function Preloader() {
           className="flex flex-col items-center"
         >
           <Image
-            src="/ambica-logo-light.png"
+            src="/ambica-logo-light.webp"
             alt="Ambica — a mark of quality"
             width={200}
             height={142}
-            priority
+            loading="eager"
+            fetchPriority="high"
             className="h-auto w-40 lg:w-48"
           />
 

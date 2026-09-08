@@ -24,7 +24,7 @@ const usps = [
     stat: "200+",
     statLabel: "fabric qualities",
     weave: "200+ fabric qualities",
-    pattern:
+    pattern: 
       "repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 13px), repeating-linear-gradient(45deg, rgb(255 255 255 / 0.18) 0 2px, transparent 2px 9px)",
   },
   {
@@ -69,15 +69,14 @@ function FabricSelectionVisual({ active }: { active: number }) {
         }}
       />
 
-      <div className="absolute left-6 right-6 top-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-ink-500 sm:left-9 sm:right-9 sm:top-8">
-        <span>Ambica Synfab</span>
+      <div className="absolute left-6 right-6 top-6 flex items-center font-mono text-[10px] uppercase tracking-[0.2em] text-ink-500 sm:left-9 sm:right-9 sm:top-8">
         <span className="flex items-center gap-2 text-brand-400">
           <motion.span
             className="h-1.5 w-1.5 rounded-full bg-brand-400"
             animate={reduce ? undefined : { opacity: [1, 0.25, 1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           />
-          Fabric selected
+          Ambica Synfab
         </span>
       </div>
 
@@ -192,7 +191,7 @@ export default function FabricUsps() {
             delay={0.08}
             className="max-w-md text-sm leading-relaxed text-muted lg:justify-self-end"
           >
-            We source, compare and supply cloth rather than manufacture it.
+            We source, compare and supply cloth.
             Explore the standards that guide every fabric we select.
           </Reveal>
         </div>

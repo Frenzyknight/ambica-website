@@ -23,7 +23,7 @@ const milestones: Milestone[] = [
     year: "1992",
     title: "The Beginning",
     body: "Founders moved from Bhadra to Ahmedabad with a vision to learn something in the textile sector. In 1993, Ambica was established with a vision to deliver quality textile solutions built on trust, integrity, and craftsmanship — starting in one small room in the New Cloth Market.",
-    image: "/timeline-1992.jpeg",
+    image: "/timeline-1992.webp",
     imageAlt:
       "Two young traders working in a one-room fabric shop in Ahmedabad’s New Cloth Market",
   },
@@ -31,7 +31,7 @@ const milestones: Milestone[] = [
     year: "2001",
     title: "Business Expansion",
     body: "Bought our own big space in the market, expanded into a wide range of fabrics, and strengthened relationships with manufacturers across India. In 2010, Ambica was officially registered.",
-    image: "/timeline-2001.jpeg",
+    image: "/timeline-2001.webp",
     imageAlt:
       "Traders spreading printed fabric across the counter of Ambica’s own cloth market showroom",
   },
@@ -39,28 +39,21 @@ const milestones: Milestone[] = [
     year: "2017",
     title: "Growing Presence",
     body: "Expanded operations, increased product portfolio, and enhanced supply chain capabilities to meet growing customer demands.",
-    image: "/timeline-2014.jpeg",
+    image: "/timeline-2014.webp",
     imageAlt: "Fabric rolls being loaded at the Ambica warehouse",
   },
   {
     year: "2021",
     title: "Building Strong Partnerships",
     body: "Started two subsidiary firms — Nirbhay Textile Mill and Dharun Textile Mill — further expanding the business into digital print shirts and plain dyeing respectively.",
-    image: "/timeline-2005.jpeg",
+    image: "/timeline-2026.webp",
     imageAlt: "Plain dyeing at Dharun Textile Mill with steaming vats and drying racks",
-  },
-  {
-    year: "2024",
-    title: "Brand Evolution",
-    body: "Strengthened Ambica’s identity with a modern approach, improved customer experience, and a focus on sustainable growth.",
-    image: "/timeline-2023.jpeg",
-    imageAlt: "Ambica’s modern brand identity and customer experience",
   },
   {
     year: "2026 & Beyond",
     title: "Future Vision",
     body: "To become one of India’s most trusted textile sourcing and manufacturing partners by embracing innovation, sustainability, and long-term relationships.",
-    image: "/timeline-2026.jpeg",
+    image: "/timeline-2023.webp",
     imageAlt:
       "Ambica team reviewing fabric swatches against a curated fabric wall in a modern showroom",
   },
@@ -288,12 +281,13 @@ export default function Timeline() {
               className="pointer-events-none absolute left-0 top-0 z-30 w-40 lg:w-48"
             >
               <Image
-                src="/shuttle-old.png"
+                src="/shuttle-old.webp"
                 alt=""
                 width={512}
                 height={512}
                 className="h-auto w-full mix-blend-multiply drop-shadow-[0_10px_20px_rgba(23,22,20,0.18)]"
-                priority
+                loading="eager"
+                fetchPriority="high"
               />
             </motion.div>
           )}

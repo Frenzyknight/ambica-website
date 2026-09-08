@@ -12,25 +12,25 @@ export const metadata: Metadata = {
 
 const subsidiaries = [
   {
-    logo: "/ntm-final.png",
+    logo: "/ntm-final.webp",
     name: "Nirbhay Textile Mill",
     short: "NTM",
     tagline: "Fabrics of Lifestyle",
     description:
-      "Specialises in Shirting & Suiting, including digital, rayon, polyester and a broad range of everyday-to-premium qualities woven for modern lifestyles.",
-    image: "/ntm-hero.jpeg",
+      "Specialises in casual bottoms, including digital, rayon, polyester and a broad range of everyday-to-premium qualities woven for modern lifestyles.",
+    image: "/ntm-hero.webp",
     imageAlt:
       "Nirbhay Textile Mill team reviewing a floral printed shirt at an Ambica showroom",
     accent: "#8a1f2b",
   },
   {
-    logo: "/dtm-final.png",
+    logo: "/dtm-final.webp",
     name: "Dharun Textile Mill",
     short: "DTM",
     tagline: "The Symbol of Quality",
     description:
       "Specialises in plain dyeing and a wide variety of fancy shirting qualities, bringing depth of colour and finish to every bolt with a relentless focus on consistency.",
-    image: "/dtm-image.jpeg",
+    image: "/dtm-image.webp",
     imageAlt:
       "Dharun Textile Mill team presenting striped shirting fabric at a textile exhibition",
     accent: "#3b3392",
@@ -46,7 +46,7 @@ export default function SubsidiariesPage() {
             Our <span className="text-brand-400">Subsidiaries</span>
           </>
         }
-        image="/subsidiaries-hero.jpeg"
+        image="/subsidiaries-hero.webp"
         imageAlt="Aerial view of the Ambica group textile manufacturing complex at golden hour"
         breadcrumbs={[
           { label: "Home", href: "/" },
