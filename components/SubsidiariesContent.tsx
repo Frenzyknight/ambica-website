@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import FluidBlobReveal from "@/components/FluidBlobReveal";
 import { Reveal, RevealEyebrow } from "@/components/RevealText";

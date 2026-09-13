@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     qualities: [75],
     minimumCacheTTL: 2678400, // 31 days
+    // Widest source in public/ is 2560px, so the default 3840 bucket only ever
+    // re-serves the 2560 render under a second URL — it costs an extra srcset
+    // entry on every image and splits the CDN cache for nothing.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2560],
   },
   async headers() {
     return [

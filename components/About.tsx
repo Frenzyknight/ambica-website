@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Reveal, RevealEyebrow } from "./RevealText";
 

@@ -1,5 +1,3 @@
-"use client";
-
 import { Reveal, RevealEyebrow } from "./RevealText";
 import WeaveTexture from "./WeaveTexture";
 

@@ -144,11 +144,14 @@ export default function Preloader() {
           transition={{ duration: 0.8, ease: EASE_OUT_EXPO }}
           className="flex flex-col items-center"
         >
+          {/* Width matches the header logo so both resolve to the same
+              optimized URL — otherwise a retina visitor downloads the same
+              mark twice while the curtain is still up. */}
           <Image
             src="/ambica-logo-light.webp"
             alt="Ambica — a mark of quality"
-            width={200}
-            height={142}
+            width={180}
+            height={128}
             loading="eager"
             fetchPriority="high"
             className="h-auto w-40 lg:w-48"

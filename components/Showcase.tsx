@@ -145,13 +145,15 @@ export default function Showcase() {
                   isActive ? "lg:grow-2" : "lg:grow"
                 }`}
               >
+                {/* All panels lazy-load: this section sits a full viewport
+                    below the hero, so preloading the first one only steals
+                    bandwidth from the hero during the critical window. */}
                 <Image
                   src={p.image}
                   alt={p.alt}
                   fill
                   sizes="(min-width: 1024px) 28vw, (min-width: 640px) 70vw, 84vw"
                   className="object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
-                  preload={i === 0}
                 />
 
                 {/* Deep image fade keeps the copy legible without another card. */}

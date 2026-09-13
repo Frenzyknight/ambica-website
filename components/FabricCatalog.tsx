@@ -34,11 +34,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Yarn-Dyed Cotton · 115 GSM",
         slides: [
           {
-            src: "/Shirt_product_photoshoot_on_model_2K_20260911001258.jpeg",
+            src: "/collection/dusty-windowpane-model.webp",
             alt: "Model in a dusty rose windowpane check full-sleeve shirt with a chest pocket",
           },
           {
-            src: "/Fabric_product_showcase_layout_2K_20260911001251.jpeg",
+            src: "/collection/dusty-windowpane-fabric.webp",
             alt: "Folded dusty rose, beige and slate blue windowpane check fabrics stacked on a white background",
           },
         ],
@@ -48,11 +48,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Yarn-Dyed Cotton · 115 GSM",
         slides: [
           {
-            src: "/Model_wearing_shirt_product_photo_2K_20260911001427.jpeg",
+            src: "/collection/rose-windowpane-model.webp",
             alt: "Model in a dusty rose windowpane check full-sleeve shirt",
           },
           {
-            src: "/Fabrics_laid_out_for_showcase_2K_20260911001423.jpeg",
+            src: "/collection/rose-windowpane-fabric.webp",
             alt: "Folded dusty rose, grey and slate windowpane check fabrics stacked on a linen background",
           },
         ],
@@ -62,11 +62,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Yarn-Dyed Cotton · 125 GSM",
         slides: [
           {
-            src: "/Planning_male_model_product_shoot_2K_20260911001239.jpeg",
+            src: "/collection/blush-tartan-model.webp",
             alt: "Model in a blush pink tartan full-sleeve shirt with a chest pocket",
           },
           {
-            src: "/Fabrics_laid_out_for_showcase_2K_20260911001229.jpeg",
+            src: "/collection/blush-tartan-fabric.webp",
             alt: "Folded blush pink and grey tartan fabrics stacked on a pale grey background",
           },
         ],
@@ -76,11 +76,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Yarn-Dyed Cotton · 130 GSM",
         slides: [
           {
-            src: "/Planning_male_model_product_shoot_2K_20260911001308.jpeg",
+            src: "/collection/crimson-tartan-model.webp",
             alt: "Model in a crimson and black tartan full-sleeve shirt",
           },
           {
-            src: "/Fabrics_stacked_on_plane_background_2K_20260911001325.jpeg",
+            src: "/collection/crimson-tartan-fabric.webp",
             alt: "Folded crimson, indigo and charcoal tartan fabrics stacked on a white background",
           },
         ],
@@ -90,11 +90,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Yarn-Dyed Cotton · 120 GSM",
         slides: [
           {
-            src: "/Model_wearing_printed_shirt_2K_20260911001503.jpeg",
+            src: "/collection/ikat-check-model.webp",
             alt: "Model in a mauve and cream ikat check full-sleeve shirt with rolled cuffs",
           },
           {
-            src: "/Fabrics_stacked_on_plane_background_2K_20260911001458.jpeg",
+            src: "/collection/ikat-check-fabric.webp",
             alt: "Folded mauve, grey, blue and sage ikat check fabrics stacked on a beige background",
           },
         ],
@@ -123,11 +123,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Yarn-Dyed Cotton · 110 GSM",
         slides: [
           {
-            src: "/Product_photoshoot_for_male_shirt_2K_20260911001406.jpeg",
+            src: "/collection/pencil-stripe-model.webp",
             alt: "Model in a red and white pencil stripe full-sleeve shirt",
           },
           {
-            src: "/Fabrics_stacked_on_plane_background_2K_20260911001402.jpeg",
+            src: "/collection/pencil-stripe-fabric.webp",
             alt: "Folded navy and red pencil stripe fabrics stacked on a grey background",
           },
         ],
@@ -170,11 +170,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Poplin · 120 GSM",
         slides: [
           {
-            src: "/Male_model_product_photo_shoot_2K_20260911001217.jpeg",
+            src: "/collection/poppy-bloom-model.webp",
             alt: "Model in a burgundy full-sleeve shirt with a large ivory poppy print",
           },
           {
-            src: "/Fabrics_laid_on_plane_background_2K_20260911001221.jpeg",
+            src: "/collection/poppy-bloom-fabric.webp",
             alt: "Folded burgundy and navy large poppy print fabrics stacked on a white background",
           },
         ],
@@ -184,11 +184,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Poplin · 115 GSM",
         slides: [
           {
-            src: "/Product_photoshoot_male_model_shirt_2K_20260911001247.jpeg",
+            src: "/collection/branch-floral-model.webp",
             alt: "Model in a forest green full-sleeve shirt with cream botanical branch print",
           },
           {
-            src: "/Fabrics_laid_out_for_showcase_2K_20260911001243.jpeg",
+            src: "/collection/branch-floral-fabric.webp",
             alt: "Folded burgundy, forest green and black botanical branch print fabrics",
           },
         ],
@@ -198,11 +198,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Poplin · 115 GSM",
         slides: [
           {
-            src: "/Model_wearing_shirt_product_photo_2K_20260911001417.jpeg",
+            src: "/collection/hibiscus-trail-model.webp",
             alt: "Model in a burgundy full-sleeve shirt with a silver hibiscus print",
           },
           {
-            src: "/Fabrics_laid_out_for_showcase_2K_20260911001413.jpeg",
+            src: "/collection/hibiscus-trail-fabric.webp",
             alt: "Folded ivory and burgundy grey hibiscus print fabrics stacked on a beige background",
           },
         ],
@@ -212,11 +212,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Satin · 125 GSM",
         slides: [
           {
-            src: "/Product_photo_shoot_for_shirt_2K_20260911001216.jpeg",
+            src: "/collection/mist-floral-model.webp",
             alt: "Model in a mauve full-sleeve shirt with a watercolour floral print",
           },
           {
-            src: "/Fabrics_laid_out_for_showcase_2K_20260911001506.jpeg",
+            src: "/collection/mist-floral-fabric.webp",
             alt: "Folded mauve, beige and teal watercolour floral fabrics stacked on a grey background",
           },
         ],
@@ -226,11 +226,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Poplin · 110 GSM",
         slides: [
           {
-            src: "/Planning_male_model_product_shoot_2K_20260911001512.jpeg",
+            src: "/collection/climbing-vine-model.webp",
             alt: "Model in a black half-sleeve shirt with a silver climbing vine floral print",
           },
           {
-            src: "/Fabrics_laid_out_product_showcase_2K_20260911001302.jpeg",
+            src: "/collection/climbing-vine-fabric.webp",
             alt: "Folded grey, ivory and navy climbing vine floral fabrics stacked on a beige background",
           },
         ],
@@ -240,7 +240,7 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Poplin · 115 GSM",
         slides: [
           {
-            src: "/Fabrics_stacked_on_plane_background_2K_20260911001355.jpeg",
+            src: "/collection/chrysanthemum-oak-fabric.webp",
             alt: "Folded grey, ivory and navy chrysanthemum and oak leaf print fabrics stacked on a white background",
           },
         ],
@@ -250,11 +250,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Poplin · 115 GSM",
         slides: [
           {
-            src: "/Product_photoshoot_with_male_model_2K_20260911001455.jpeg",
+            src: "/collection/mandala-burst-model.webp",
             alt: "Model in a mauve full-sleeve shirt with a white mandala print",
           },
           {
-            src: "/Fabrics_stacked_on_plane_background_2K_20260911001445.jpeg",
+            src: "/collection/mandala-burst-fabric.webp",
             alt: "Folded ivory, mauve and olive mandala print fabrics stacked on a grey background",
           },
         ],
@@ -297,11 +297,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Poplin · 110 GSM",
         slides: [
           {
-            src: "/Male_model_shirt_product_shoot_2K_20260911001339.jpeg",
+            src: "/collection/brush-leaf-model.webp",
             alt: "Model in a navy half-sleeve shirt with a white leaf outline and brush-block print",
           },
           {
-            src: "/Fabrics_laid_out_for_showcase_2K_20260911001332.jpeg",
+            src: "/collection/brush-leaf-fabric.webp",
             alt: "Mauve, ivory and navy leaf outline fabrics with brush-block print laid out for showcase",
           },
         ],
@@ -311,11 +311,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Satin · 120 GSM",
         slides: [
           {
-            src: "/Planning_male_model_product_shoot_2K_20260911001440.jpeg",
+            src: "/collection/veined-leaf-model.webp",
             alt: "Model in a beige full-sleeve shirt with a large veined leaf print",
           },
           {
-            src: "/Fabrics_laid_out_for_showcase_2K_20260911001432.jpeg",
+            src: "/collection/veined-leaf-fabric.webp",
             alt: "Folded burgundy, beige and navy large veined leaf print fabrics stacked on a white background",
           },
         ],
@@ -325,11 +325,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Satin · 125 GSM",
         slides: [
           {
-            src: "/Man_modeling_shirt_product_photo_2K_20260911001329.jpeg",
+            src: "/collection/canopy-leaf-model.webp",
             alt: "Model in a teal full-sleeve shirt with a large tropical leaf print",
           },
           {
-            src: "/Fabrics_stacked_on_plane_background_2K_20260911001212.jpeg",
+            src: "/collection/canopy-leaf-fabric.webp",
             alt: "Folded teal, olive and burgundy tropical leaf print fabrics stacked on a grey background",
           },
         ],
@@ -400,11 +400,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Twill · 120 GSM",
         slides: [
           {
-            src: "/Model_wearing_shirt_product_photo_2K_20260911001317.jpeg",
+            src: "/collection/hatch-block-model.webp",
             alt: "Model in a sage full-sleeve shirt with a white hatched square print",
           },
           {
-            src: "/Fabrics_laid_on_plane_background_2K_20260911001322.jpeg",
+            src: "/collection/hatch-block-fabric.webp",
             alt: "Sage, ivory and navy hatched square print fabrics laid out on a grey background",
           },
         ],
@@ -414,11 +414,11 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Poplin · 115 GSM",
         slides: [
           {
-            src: "/Planning_product_photo_shoot_shirt_2K_20260911001351.jpeg",
+            src: "/collection/lattice-bloom-model.webp",
             alt: "Model in an ivory half-sleeve shirt with a lattice floral print",
           },
           {
-            src: "/Fabrics_laid_out_for_showcase_2K_20260911001343.jpeg",
+            src: "/collection/lattice-bloom-fabric.webp",
             alt: "Mauve, ivory and navy lattice floral print fabrics laid out for showcase",
           },
         ],
@@ -428,7 +428,7 @@ const patternGroups: FabricGroup[] = [
         spec: "Cotton Poplin · 110 GSM",
         slides: [
           {
-            src: "/Product_photoshoot_on_male_model_2K_20260911001359.jpeg",
+            src: "/collection/neat-geometric-model.webp",
             alt: "Model in a navy full-sleeve shirt with a small white geometric print",
           },
         ],
