@@ -16,148 +16,441 @@ type Fabric = {
   // TODO: replace placeholder names and specs with the real catalogue copy.
   name: string;
   spec: string;
-  /** Slide 0 is the garment shot, slide 1 is the fabric in the same print. */
-  slides: [Slide, Slide];
+  /** Slide 0 is the garment shot when available; remaining slides are the matching fabric. */
+  slides: Slide[];
 };
 
-const fabrics: Fabric[] = [
+type FabricGroup = {
+  title: string;
+  fabrics: Fabric[];
+};
+
+const patternGroups: FabricGroup[] = [
   {
-    name: "Mudcloth Grid",
-    spec: "Cotton Poplin · 120 GSM",
-    slides: [
+    title: "Checks & Plaids",
+    fabrics: [
       {
-        src: "/collection/mudcloth-model.webp",
-        alt: "Model in a forest green full-sleeve shirt with white mudcloth brush print",
+        name: "Dusty Windowpane",
+        spec: "Yarn-Dyed Cotton · 115 GSM",
+        slides: [
+          {
+            src: "/Shirt_product_photoshoot_on_model_2K_20260911001258.jpeg",
+            alt: "Model in a dusty rose windowpane check full-sleeve shirt with a chest pocket",
+          },
+          {
+            src: "/Fabric_product_showcase_layout_2K_20260911001251.jpeg",
+            alt: "Folded dusty rose, beige and slate blue windowpane check fabrics stacked on a white background",
+          },
+        ],
       },
       {
-        src: "/collection/mudcloth-fabric.webp",
-        alt: "Folded green and maroon mudcloth brush print fabrics stacked on a beige background",
+        name: "Rose Windowpane",
+        spec: "Yarn-Dyed Cotton · 115 GSM",
+        slides: [
+          {
+            src: "/Model_wearing_shirt_product_photo_2K_20260911001427.jpeg",
+            alt: "Model in a dusty rose windowpane check full-sleeve shirt",
+          },
+          {
+            src: "/Fabrics_laid_out_for_showcase_2K_20260911001423.jpeg",
+            alt: "Folded dusty rose, grey and slate windowpane check fabrics stacked on a linen background",
+          },
+        ],
+      },
+      {
+        name: "Blush Tartan",
+        spec: "Yarn-Dyed Cotton · 125 GSM",
+        slides: [
+          {
+            src: "/Planning_male_model_product_shoot_2K_20260911001239.jpeg",
+            alt: "Model in a blush pink tartan full-sleeve shirt with a chest pocket",
+          },
+          {
+            src: "/Fabrics_laid_out_for_showcase_2K_20260911001229.jpeg",
+            alt: "Folded blush pink and grey tartan fabrics stacked on a pale grey background",
+          },
+        ],
+      },
+      {
+        name: "Crimson Tartan",
+        spec: "Yarn-Dyed Cotton · 130 GSM",
+        slides: [
+          {
+            src: "/Planning_male_model_product_shoot_2K_20260911001308.jpeg",
+            alt: "Model in a crimson and black tartan full-sleeve shirt",
+          },
+          {
+            src: "/Fabrics_stacked_on_plane_background_2K_20260911001325.jpeg",
+            alt: "Folded crimson, indigo and charcoal tartan fabrics stacked on a white background",
+          },
+        ],
+      },
+      {
+        name: "Ikat Check",
+        spec: "Yarn-Dyed Cotton · 120 GSM",
+        slides: [
+          {
+            src: "/Model_wearing_printed_shirt_2K_20260911001503.jpeg",
+            alt: "Model in a mauve and cream ikat check full-sleeve shirt with rolled cuffs",
+          },
+          {
+            src: "/Fabrics_stacked_on_plane_background_2K_20260911001458.jpeg",
+            alt: "Folded mauve, grey, blue and sage ikat check fabrics stacked on a beige background",
+          },
+        ],
       },
     ],
   },
   {
-    name: "Botanical Leaf",
-    spec: "Cotton Voile · 100 GSM",
-    slides: [
+    title: "Stripes",
+    fabrics: [
       {
-        src: "/collection/leaf-model.webp",
-        alt: "Model in a white half-sleeve shirt with soft green leaf print",
+        name: "Classic Pinstripe",
+        spec: "Yarn-Dyed Cotton · 110 GSM",
+        slides: [
+          {
+            src: "/collection/pinstripe-model.webp",
+            alt: "Model in a navy and white pinstripe half-sleeve shirt",
+          },
+          {
+            src: "/collection/pinstripe-fabric.webp",
+            alt: "Stack of folded navy and white pinstripe fabrics",
+          },
+        ],
       },
       {
-        src: "/collection/leaf-fabric.webp",
-        alt: "Three folded leaf print fabrics in beige, blue and green on a cream background",
-      },
-    ],
-  },
-  {
-    name: "Classic Pinstripe",
-    spec: "Yarn-Dyed Cotton · 110 GSM",
-    slides: [
-      {
-        src: "/collection/pinstripe-model.webp",
-        alt: "Model in a navy and white pinstripe half-sleeve shirt",
-      },
-      {
-        src: "/collection/pinstripe-fabric.webp",
-        alt: "Stack of folded navy and white pinstripe fabrics",
-      },
-    ],
-  },
-  {
-    name: "Abstract Brushstroke",
-    spec: "Cotton Twill · 130 GSM",
-    slides: [
-      {
-        src: "/collection/brushstroke-model.webp",
-        alt: "Model in a black and white abstract brushstroke print full-sleeve shirt",
+        name: "Pencil Stripe",
+        spec: "Yarn-Dyed Cotton · 110 GSM",
+        slides: [
+          {
+            src: "/Product_photoshoot_for_male_shirt_2K_20260911001406.jpeg",
+            alt: "Model in a red and white pencil stripe full-sleeve shirt",
+          },
+          {
+            src: "/Fabrics_stacked_on_plane_background_2K_20260911001402.jpeg",
+            alt: "Folded navy and red pencil stripe fabrics stacked on a grey background",
+          },
+        ],
       },
       {
-        src: "/collection/brushstroke-fabric.webp",
-        alt: "Folded black and white abstract brushstroke print fabrics on a grey background",
-      },
-    ],
-  },
-  {
-    name: "Lotus Stem",
-    spec: "Cotton Dobby · 115 GSM",
-    slides: [
-      {
-        src: "/collection/lotus-model.webp",
-        alt: "Model in a cream half-sleeve shirt with brown lotus stem print",
-      },
-      {
-        src: "/collection/lotus-fabric.webp",
-        alt: "Stack of folded cream and brown botanical print fabrics",
+        name: "Awning Stripe",
+        spec: "Cotton-Linen · 160 GSM",
+        slides: [
+          {
+            src: "/collection/awning-stripe-model.webp",
+            alt: "Model in blue and white wide stripe tailored shorts",
+          },
+          {
+            src: "/collection/awning-stripe-fabric.webp",
+            alt: "Stack of folded wide stripe fabrics in grey, blue, taupe, ochre and sage",
+          },
+        ],
       },
     ],
   },
   {
-    name: "Fractured Marble",
-    spec: "Cotton Satin · 125 GSM",
-    slides: [
+    title: "Florals",
+    fabrics: [
       {
-        src: "/collection/fractured-marble-model.webp",
-        alt: "Model in a slate blue full-sleeve shirt with a fractured marble print",
+        name: "Lotus Stem",
+        spec: "Cotton Dobby · 115 GSM",
+        slides: [
+          {
+            src: "/collection/lotus-model.webp",
+            alt: "Model in a cream half-sleeve shirt with brown lotus stem print",
+          },
+          {
+            src: "/collection/lotus-fabric.webp",
+            alt: "Stack of folded cream and brown botanical print fabrics",
+          },
+        ],
       },
       {
-        src: "/collection/fractured-marble-fabric.webp",
-        alt: "Folded mauve and slate blue fractured marble print fabrics stacked on a cream background",
+        name: "Poppy Bloom",
+        spec: "Cotton Poplin · 120 GSM",
+        slides: [
+          {
+            src: "/Male_model_product_photo_shoot_2K_20260911001217.jpeg",
+            alt: "Model in a burgundy full-sleeve shirt with a large ivory poppy print",
+          },
+          {
+            src: "/Fabrics_laid_on_plane_background_2K_20260911001221.jpeg",
+            alt: "Folded burgundy and navy large poppy print fabrics stacked on a white background",
+          },
+        ],
+      },
+      {
+        name: "Branch Floral",
+        spec: "Cotton Poplin · 115 GSM",
+        slides: [
+          {
+            src: "/Product_photoshoot_male_model_shirt_2K_20260911001247.jpeg",
+            alt: "Model in a forest green full-sleeve shirt with cream botanical branch print",
+          },
+          {
+            src: "/Fabrics_laid_out_for_showcase_2K_20260911001243.jpeg",
+            alt: "Folded burgundy, forest green and black botanical branch print fabrics",
+          },
+        ],
+      },
+      {
+        name: "Hibiscus Trail",
+        spec: "Cotton Poplin · 115 GSM",
+        slides: [
+          {
+            src: "/Model_wearing_shirt_product_photo_2K_20260911001417.jpeg",
+            alt: "Model in a burgundy full-sleeve shirt with a silver hibiscus print",
+          },
+          {
+            src: "/Fabrics_laid_out_for_showcase_2K_20260911001413.jpeg",
+            alt: "Folded ivory and burgundy grey hibiscus print fabrics stacked on a beige background",
+          },
+        ],
+      },
+      {
+        name: "Mist Floral",
+        spec: "Cotton Satin · 125 GSM",
+        slides: [
+          {
+            src: "/Product_photo_shoot_for_shirt_2K_20260911001216.jpeg",
+            alt: "Model in a mauve full-sleeve shirt with a watercolour floral print",
+          },
+          {
+            src: "/Fabrics_laid_out_for_showcase_2K_20260911001506.jpeg",
+            alt: "Folded mauve, beige and teal watercolour floral fabrics stacked on a grey background",
+          },
+        ],
+      },
+      {
+        name: "Climbing Vine",
+        spec: "Cotton Poplin · 110 GSM",
+        slides: [
+          {
+            src: "/Planning_male_model_product_shoot_2K_20260911001512.jpeg",
+            alt: "Model in a black half-sleeve shirt with a silver climbing vine floral print",
+          },
+          {
+            src: "/Fabrics_laid_out_product_showcase_2K_20260911001302.jpeg",
+            alt: "Folded grey, ivory and navy climbing vine floral fabrics stacked on a beige background",
+          },
+        ],
+      },
+      {
+        name: "Chrysanthemum Oak",
+        spec: "Cotton Poplin · 115 GSM",
+        slides: [
+          {
+            src: "/Fabrics_stacked_on_plane_background_2K_20260911001355.jpeg",
+            alt: "Folded grey, ivory and navy chrysanthemum and oak leaf print fabrics stacked on a white background",
+          },
+        ],
+      },
+      {
+        name: "Mandala Burst",
+        spec: "Cotton Poplin · 115 GSM",
+        slides: [
+          {
+            src: "/Product_photoshoot_with_male_model_2K_20260911001455.jpeg",
+            alt: "Model in a mauve full-sleeve shirt with a white mandala print",
+          },
+          {
+            src: "/Fabrics_stacked_on_plane_background_2K_20260911001445.jpeg",
+            alt: "Folded ivory, mauve and olive mandala print fabrics stacked on a grey background",
+          },
+        ],
       },
     ],
   },
   {
-    name: "Letterpress Type",
-    spec: "Rayon Crepe · 105 GSM",
-    slides: [
+    title: "Leaves",
+    fabrics: [
       {
-        src: "/collection/letterpress-model.webp",
-        alt: "Model in a white half-sleeve shirt with a black distressed typography print",
+        name: "Botanical Leaf",
+        spec: "Cotton Voile · 100 GSM",
+        slides: [
+          {
+            src: "/collection/leaf-model.webp",
+            alt: "Model in a white half-sleeve shirt with soft green leaf print",
+          },
+          {
+            src: "/collection/leaf-fabric.webp",
+            alt: "Three folded leaf print fabrics in beige, blue and green on a cream background",
+          },
+        ],
       },
       {
-        src: "/collection/letterpress-fabric.webp",
-        alt: "Three folded white and slate typography print fabrics stacked on a pale grey background",
+        name: "Inkwash Maple",
+        spec: "Viscose Rayon · 110 GSM",
+        slides: [
+          {
+            src: "/collection/inkwash-maple-model.webp",
+            alt: "Model in a taupe camp collar shirt with a watercolour maple leaf print",
+          },
+          {
+            src: "/collection/inkwash-maple-fabric.webp",
+            alt: "Stack of folded taupe watercolour maple leaf print fabrics on a grey background",
+          },
+        ],
+      },
+      {
+        name: "Brush Leaf",
+        spec: "Cotton Poplin · 110 GSM",
+        slides: [
+          {
+            src: "/Male_model_shirt_product_shoot_2K_20260911001339.jpeg",
+            alt: "Model in a navy half-sleeve shirt with a white leaf outline and brush-block print",
+          },
+          {
+            src: "/Fabrics_laid_out_for_showcase_2K_20260911001332.jpeg",
+            alt: "Mauve, ivory and navy leaf outline fabrics with brush-block print laid out for showcase",
+          },
+        ],
+      },
+      {
+        name: "Veined Leaf",
+        spec: "Cotton Satin · 120 GSM",
+        slides: [
+          {
+            src: "/Planning_male_model_product_shoot_2K_20260911001440.jpeg",
+            alt: "Model in a beige full-sleeve shirt with a large veined leaf print",
+          },
+          {
+            src: "/Fabrics_laid_out_for_showcase_2K_20260911001432.jpeg",
+            alt: "Folded burgundy, beige and navy large veined leaf print fabrics stacked on a white background",
+          },
+        ],
+      },
+      {
+        name: "Canopy Leaf",
+        spec: "Cotton Satin · 125 GSM",
+        slides: [
+          {
+            src: "/Man_modeling_shirt_product_photo_2K_20260911001329.jpeg",
+            alt: "Model in a teal full-sleeve shirt with a large tropical leaf print",
+          },
+          {
+            src: "/Fabrics_stacked_on_plane_background_2K_20260911001212.jpeg",
+            alt: "Folded teal, olive and burgundy tropical leaf print fabrics stacked on a grey background",
+          },
+        ],
       },
     ],
   },
   {
-    name: "Inkwash Maple",
-    spec: "Viscose Rayon · 110 GSM",
-    slides: [
+    title: "Abstract & Geometric",
+    fabrics: [
       {
-        src: "/collection/inkwash-maple-model.webp",
-        alt: "Model in a taupe camp collar shirt with a watercolour maple leaf print",
+        name: "Mudcloth Grid",
+        spec: "Cotton Poplin · 120 GSM",
+        slides: [
+          {
+            src: "/collection/mudcloth-model.webp",
+            alt: "Model in a forest green full-sleeve shirt with white mudcloth brush print",
+          },
+          {
+            src: "/collection/mudcloth-fabric.webp",
+            alt: "Folded green and maroon mudcloth brush print fabrics stacked on a beige background",
+          },
+        ],
       },
       {
-        src: "/collection/inkwash-maple-fabric.webp",
-        alt: "Stack of folded taupe watercolour maple leaf print fabrics on a grey background",
+        name: "Abstract Brushstroke",
+        spec: "Cotton Twill · 130 GSM",
+        slides: [
+          {
+            src: "/collection/brushstroke-model.webp",
+            alt: "Model in a black and white abstract brushstroke print full-sleeve shirt",
+          },
+          {
+            src: "/collection/brushstroke-fabric.webp",
+            alt: "Folded black and white abstract brushstroke print fabrics on a grey background",
+          },
+        ],
+      },
+      {
+        name: "Fractured Marble",
+        spec: "Cotton Satin · 125 GSM",
+        slides: [
+          {
+            src: "/collection/fractured-marble-model.webp",
+            alt: "Model in a slate blue full-sleeve shirt with a fractured marble print",
+          },
+          {
+            src: "/collection/fractured-marble-fabric.webp",
+            alt: "Folded mauve and slate blue fractured marble print fabrics stacked on a cream background",
+          },
+        ],
+      },
+      {
+        name: "Letterpress Type",
+        spec: "Rayon Crepe · 105 GSM",
+        slides: [
+          {
+            src: "/collection/letterpress-model.webp",
+            alt: "Model in a white half-sleeve shirt with a black distressed typography print",
+          },
+          {
+            src: "/collection/letterpress-fabric.webp",
+            alt: "Three folded white and slate typography print fabrics stacked on a pale grey background",
+          },
+        ],
+      },
+      {
+        name: "Hatch Block",
+        spec: "Cotton Twill · 120 GSM",
+        slides: [
+          {
+            src: "/Model_wearing_shirt_product_photo_2K_20260911001317.jpeg",
+            alt: "Model in a sage full-sleeve shirt with a white hatched square print",
+          },
+          {
+            src: "/Fabrics_laid_on_plane_background_2K_20260911001322.jpeg",
+            alt: "Sage, ivory and navy hatched square print fabrics laid out on a grey background",
+          },
+        ],
+      },
+      {
+        name: "Lattice Bloom",
+        spec: "Cotton Poplin · 115 GSM",
+        slides: [
+          {
+            src: "/Planning_product_photo_shoot_shirt_2K_20260911001351.jpeg",
+            alt: "Model in an ivory half-sleeve shirt with a lattice floral print",
+          },
+          {
+            src: "/Fabrics_laid_out_for_showcase_2K_20260911001343.jpeg",
+            alt: "Mauve, ivory and navy lattice floral print fabrics laid out for showcase",
+          },
+        ],
+      },
+      {
+        name: "Neat Geometric",
+        spec: "Cotton Poplin · 110 GSM",
+        slides: [
+          {
+            src: "/Product_photoshoot_on_male_model_2K_20260911001359.jpeg",
+            alt: "Model in a navy full-sleeve shirt with a small white geometric print",
+          },
+        ],
       },
     ],
   },
   {
-    name: "Awning Stripe",
-    spec: "Cotton-Linen · 160 GSM",
-    slides: [
+    title: "Solids & Textures",
+    fabrics: [
       {
-        src: "/collection/awning-stripe-model.webp",
-        alt: "Model in blue and white wide stripe tailored shorts",
-      },
-      {
-        src: "/collection/awning-stripe-fabric.webp",
-        alt: "Stack of folded wide stripe fabrics in grey, blue, taupe, ochre and sage",
-      },
-    ],
-  },
-  {
-    name: "Textured Linen",
-    spec: "Pure Linen · 180 GSM",
-    slides: [
-      {
-        src: "/collection/textured-linen-model.webp",
-        alt: "Model in brown textured linen drawstring shorts",
-      },
-      {
-        src: "/collection/textured-linen-fabric.webp",
-        alt: "Stack of folded textured linen fabrics in white, rust, sand, olive and brown",
+        name: "Textured Linen",
+        spec: "Pure Linen · 180 GSM",
+        slides: [
+          {
+            src: "/collection/textured-linen-model.webp",
+            alt: "Model in brown textured linen drawstring shorts",
+          },
+          {
+            src: "/collection/textured-linen-fabric.webp",
+            alt: "Stack of folded textured linen fabrics in white, rust, sand, olive and brown",
+          },
+        ],
       },
     ],
   },
@@ -182,19 +475,29 @@ function Chevron({ direction }: { direction: "prev" | "next" }) {
   );
 }
 
-function FabricCard({ fabric, priority }: { fabric: Fabric; priority?: boolean }) {
+function FabricCard({
+  fabric,
+  priority,
+}: {
+  fabric: Fabric;
+  priority?: boolean;
+}) {
   const [index, setIndex] = useState(0);
   const swipeStartX = useRef<number | null>(null);
+  const canCarousel = fabric.slides.length > 1;
 
   const step = (delta: number) =>
-    setIndex((current) => (current + delta + fabric.slides.length) % fabric.slides.length);
+    setIndex(
+      (current) =>
+        (current + delta + fabric.slides.length) % fabric.slides.length,
+    );
 
   return (
     <div className="group">
       <div
         className="relative aspect-3/4 w-full overflow-hidden rounded-md bg-ink-100"
         onPointerDown={(event) => {
-          if (event.pointerType === "mouse") return;
+          if (!canCarousel || event.pointerType === "mouse") return;
           swipeStartX.current = event.clientX;
         }}
         onPointerUp={(event) => {
@@ -226,42 +529,55 @@ function FabricCard({ fabric, priority }: { fabric: Fabric; priority?: boolean }
           ))}
         </div>
 
-        {/* Edge arrows: slide out of the frame on hover, always shown on touch. */}
-        <button
-          type="button"
-          onClick={() => step(-1)}
-          aria-label={`Previous image of ${fabric.name}`}
-          className="absolute left-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 -translate-x-3 items-center justify-center rounded-full bg-white/85 text-ink-900 opacity-0 shadow-sm backdrop-blur-sm transition duration-500 ease-out-expo hover:bg-white group-hover:translate-x-0 group-hover:opacity-100 group-focus-within:translate-x-0 group-focus-within:opacity-100 motion-reduce:transition-none [@media(hover:none)]:translate-x-0 [@media(hover:none)]:opacity-100"
-        >
-          <Chevron direction="prev" />
-        </button>
-        <button
-          type="button"
-          onClick={() => step(1)}
-          aria-label={`Next image of ${fabric.name}`}
-          className="absolute right-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 translate-x-3 items-center justify-center rounded-full bg-white/85 text-ink-900 opacity-0 shadow-sm backdrop-blur-sm transition duration-500 ease-out-expo hover:bg-white group-hover:translate-x-0 group-hover:opacity-100 group-focus-within:translate-x-0 group-focus-within:opacity-100 motion-reduce:transition-none [@media(hover:none)]:translate-x-0 [@media(hover:none)]:opacity-100"
-        >
-          <Chevron direction="next" />
-        </button>
+        {canCarousel ? (
+          <>
+            {/* Edge arrows: slide out of the frame on hover, always shown on touch. */}
+            <button
+              type="button"
+              onClick={() => step(-1)}
+              aria-label={`Previous image of ${fabric.name}`}
+              className="absolute left-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 -translate-x-3 items-center justify-center rounded-full bg-white/85 text-ink-900 opacity-0 shadow-sm backdrop-blur-sm transition duration-500 ease-out-expo hover:bg-white group-hover:translate-x-0 group-hover:opacity-100 group-focus-within:translate-x-0 group-focus-within:opacity-100 motion-reduce:transition-none [@media(hover:none)]:translate-x-0 [@media(hover:none)]:opacity-100"
+            >
+              <Chevron direction="prev" />
+            </button>
+            <button
+              type="button"
+              onClick={() => step(1)}
+              aria-label={`Next image of ${fabric.name}`}
+              className="absolute right-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 translate-x-3 items-center justify-center rounded-full bg-white/85 text-ink-900 opacity-0 shadow-sm backdrop-blur-sm transition duration-500 ease-out-expo hover:bg-white group-hover:translate-x-0 group-hover:opacity-100 group-focus-within:translate-x-0 group-focus-within:opacity-100 motion-reduce:transition-none [@media(hover:none)]:translate-x-0 [@media(hover:none)]:opacity-100"
+            >
+              <Chevron direction="next" />
+            </button>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5">
-          {fabric.slides.map((slide, si) => (
-            <span
-              key={slide.src}
-              className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
-                si === index ? "bg-white" : "bg-white/45"
-              }`}
-            />
-          ))}
-        </div>
+            <div className="pointer-events-none absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5">
+              {fabric.slides.map((slide, si) => (
+                <span
+                  key={slide.src}
+                  className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
+                    si === index ? "bg-white" : "bg-white/45"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
 
       <div className="mt-4 flex items-start justify-between gap-4">
         <div>
-          <Reveal as="h3" y={16} className="font-serif text-base font-semibold tracking-tight text-ink-900">
+          <Reveal
+            as="h3"
+            y={16}
+            className="font-serif text-base font-semibold tracking-tight text-ink-900"
+          >
             {fabric.name}
           </Reveal>
-          <Reveal as="p" delay={0.05} y={12} className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-400">
+          <Reveal
+            as="p"
+            delay={0.05}
+            y={12}
+            className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-400"
+          >
             {fabric.spec}
           </Reveal>
         </div>
@@ -280,18 +596,31 @@ function FabricCard({ fabric, priority }: { fabric: Fabric; priority?: boolean }
 
 export default function FabricCatalog() {
   return (
-    <section id="fabrics" className="rounded-t-3xl bg-white text-ink-900 lg:rounded-t-[3rem]">
+    <section
+      id="fabrics"
+      className="rounded-t-3xl bg-white text-ink-900 lg:rounded-t-[3rem]"
+    >
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
-        <Reveal as="h2" className="font-serif text-2xl font-bold tracking-tight text-ink-900 lg:text-3xl">
-          The Collection
-        </Reveal>
-        <div className="mt-5 h-px w-full bg-ink-200" />
-
-        <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {fabrics.map((fabric, fi) => (
-            <FabricCard key={fabric.name} fabric={fabric} priority={fi === 0} />
-          ))}
-        </div>
+        {patternGroups.map((group, gi) => (
+          <div key={group.title} className={gi === 0 ? undefined : "mt-16"}>
+            <Reveal
+              as="h2"
+              className="font-serif text-xl font-semibold tracking-tight text-ink-900 lg:text-2xl"
+            >
+              {group.title}
+            </Reveal>
+            <div className="mt-4 h-px w-full bg-ink-200" />
+            <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+              {group.fabrics.map((fabric, fi) => (
+                <FabricCard
+                  key={fabric.name}
+                  fabric={fabric}
+                  priority={gi === 0 && fi === 0}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

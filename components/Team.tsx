@@ -12,6 +12,7 @@ type Member = {
   role?: string;
   focus: string;
   photo: string;
+  photoPosition?: string;
   linkedin: string;
   facebook: string;
 };
@@ -64,6 +65,7 @@ const team: Member[] = [
     role: "Founder",
     focus: "Dharun Textile Mill",
     photo: "/team/dharun.webp",
+    photoPosition: "object-top",
     linkedin: LINKEDIN,
     facebook: FACEBOOK,
   }
@@ -165,7 +167,7 @@ function MemberCard({ member }: { member: Member }) {
           alt={`Portrait of ${member.name}, ${member.role ?? member.focus} at Ambica`}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 80vw"
-          className="object-cover object-center"
+          className={`object-cover ${member.photoPosition ?? "object-center"}`}
         />
 
         <div

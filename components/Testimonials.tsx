@@ -8,6 +8,7 @@ import {
   type PanInfo,
 } from "motion/react";
 import { Reveal, RevealEyebrow } from "./RevealText";
+import WeaveTexture from "./WeaveTexture";
 
 type Testimonial = {
   quote: string;
@@ -72,14 +73,8 @@ function Stars({ count }: { count: number }) {
 function Avatar({ initials }: { initials: string }) {
   return (
     <div className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-border bg-surface">
-      <div
-        className="absolute inset-0 text-ink-500 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 6px), repeating-linear-gradient(-45deg, currentColor 0 1px, transparent 1px 6px)",
-        }}
-      />
-      <span className="font-mono text-sm font-semibold tracking-widest text-accent">
+      <WeaveTexture size={90} opacity={0.22} blend="multiply" />
+      <span className="relative font-mono text-sm font-semibold tracking-widest text-accent">
         {initials}
       </span>
     </div>

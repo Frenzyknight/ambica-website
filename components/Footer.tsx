@@ -73,11 +73,15 @@ export default function Footer() {
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1.2fr] lg:gap-16">
           {/* Brand */}
           <div>
+            {/* Kept at 128w so the optimized URL resolves to a different
+                width bucket than the eager header logo, which shares this
+                asset — a colliding URL makes Next attribute this lazy image's
+                loading mode to the header's LCP element. */}
             <Image
               src="/ambica-logo-light.webp"
               alt="Ambica — a mark of quality"
-              width={133}
-              height={94}
+              width={300}
+              height={90}
             />
            
 

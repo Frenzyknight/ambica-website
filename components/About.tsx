@@ -144,7 +144,7 @@ export default function About() {
                 <span className="mt-1 font-mono text-[9px] uppercase leading-tight tracking-[0.18em] lg:text-[10px]">
                   Years of
                   <br />
-                  Sourcing
+                  Experience
                 </span>
               </div>
             </div>
