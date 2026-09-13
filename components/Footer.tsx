@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import BackToTop from "./BackToTop";
 import { Reveal, RevealEyebrow } from "./RevealText";
 import WeaveTexture from "./WeaveTexture";
 
@@ -229,23 +230,7 @@ export default function Footer() {
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-ink-500">
               ©  Ambica synfab · A mark of quality
             </p>
-            <Link
-              href="/"
-              aria-label="Back to top"
-              className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-glow transition-all duration-300 ease-out-expo hover:bg-primary-hover hover:shadow-none"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4"
-              >
-                <path d="M12 19V5M6 11l6-6 6 6" />
-              </svg>
-            </Link>
+            <BackToTop />
           </div>
         </div>
       </div>

@@ -76,7 +76,7 @@ function Section({
 
 export default function DesignPage() {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-20">
+    <main className="mx-auto max-w-5xl px-6 pb-20 pt-32">
       <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-accent">
         Ambica Design System
       </p>

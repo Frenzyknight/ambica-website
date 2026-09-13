@@ -150,7 +150,7 @@ export default function Preloader() {
           <Image
             src="/ambica-logo-light.webp"
             alt="Ambica — a mark of quality"
-            width={180}
+            width={181}
             height={128}
             loading="eager"
             fetchPriority="high"

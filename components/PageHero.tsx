@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import SiteHeader from "./SiteHeader";
 import { Reveal } from "./RevealText";
 
 type Crumb = {
@@ -38,8 +37,6 @@ export default function PageHero({
       {/* Legibility scrims */}
       <div className="pointer-events-none absolute inset-0 bg-ink-950/55" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-950/80 via-transparent to-ink-950/85" />
-
-      <SiteHeader />
 
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
         <Reveal as="h1" immediate delay={0.2} y={36}>

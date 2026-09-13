@@ -1,6 +1,5 @@
 import Link from "next/link";
 import ClothCanvas from "./ClothCanvas";
-import SiteHeader from "./SiteHeader";
 import { Reveal, RevealEyebrow, RevealStagger } from "./RevealText";
 
 export default function Hero() {
@@ -14,9 +13,6 @@ export default function Hero() {
       {/* Legibility scrims — pointer-events-none so the cloth still feels the cursor */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-950/60 via-transparent to-ink-950/70" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-950/45 via-transparent to-transparent" />
-
-      {/* Nav */}
-      <SiteHeader />
 
       {/* Copy */}
       <div className="pointer-events-none relative z-10 flex h-full items-end">

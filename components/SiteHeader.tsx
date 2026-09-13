@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
@@ -13,8 +14,38 @@ const navLinks = [
   { label: "Fabrics", href: "/fabrics" },
 ];
 
+// Routes that open on a dark hero, which is the only backdrop the bar can sit
+// on transparently. Anywhere else it wears the floating pill from the first
+// frame, otherwise the light logo would vanish into a light page.
+const DARK_HERO_ROUTES = new Set([
+  "/",
+  "/about",
+  "/subsidiaries",
+  "/fabrics",
+]);
+
+// Asymmetric thresholds: the bar detaches once the hero starts leaving, but
+// only re-docks back at the very top, so a scroll that hovers on the boundary
+// can't flip it back and forth.
+const DETACH_AT = 56;
+const REATTACH_AT = 8;
+
 export default function SiteHeader() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const update = () => {
+      const y = window.scrollY;
+      setScrolled((prev) => (prev ? y > REATTACH_AT : y > DETACH_AT));
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  const floating = scrolled || !DARK_HERO_ROUTES.has(pathname);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -30,22 +61,43 @@ export default function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="pointer-events-none absolute inset-x-0 top-0 z-20">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
+    <header
+      className={`pointer-events-none fixed inset-x-0 top-0 z-50 transition-[padding] duration-700 ease-out-expo motion-reduce:transition-none ${
+        floating ? "px-3 pt-3 sm:px-6 sm:pt-4" : "px-0 pt-0"
+      }`}
+    >
+      <div
+        className={`mx-auto flex items-center justify-between border transition-all duration-700 ease-out-expo motion-reduce:transition-none ${
+          floating
+            ? "pointer-events-auto max-w-5xl rounded-full border-ink-700/50 bg-ink-950/70 px-4 py-2 shadow-[0_16px_44px_-18px_rgba(0,0,0,0.75)] backdrop-blur-xl sm:px-5"
+            : "max-w-7xl rounded-none border-transparent px-6 py-6 lg:px-10"
+        }`}
+      >
         <Link href="/" className="pointer-events-auto" onClick={() => setOpen(false)}>
           <Image
             src="/ambica-logo-light.webp"
             alt="Ambica — a mark of quality"
-            width={180}
+            // 181×128 is the asset's true ratio (512×362). Declaring a width
+            // no breakpoint actually renders at also avoids next/image's
+            // "width or height modified, but not the other" dev warning.
+            width={181}
             height={128}
             loading="eager"
             fetchPriority="high"
-            className="h-auto w-30 md:w-45"
+            // Only the width is animated — height stays auto so it follows the
+            // aspect ratio frame by frame. (CSS can't interpolate `auto`.)
+            className={`h-auto transition-[width] duration-700 ease-out-expo motion-reduce:transition-none ${
+              floating ? "w-18" : "w-30 md:w-45"
+            }`}
           />
         </Link>
 
         {/* Desktop nav */}
-        <nav className="pointer-events-auto hidden items-center gap-8 text-sm font-medium text-ink-200 md:flex">
+        <nav
+          className={`pointer-events-auto hidden items-center text-sm font-medium text-ink-200 transition-[gap] duration-700 ease-out-expo motion-reduce:transition-none md:flex ${
+            floating ? "gap-6" : "gap-8"
+          }`}
+        >
           {navLinks.map((link) => (
             <Link
               key={link.label}
